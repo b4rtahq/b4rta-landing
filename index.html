@@ -1,79 +1,765 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>B4RTA</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B4RTA // System</title>
 
-<style>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #02030a;
+      --bg-alt: #050815;
+      --accent: #00eaff;
+      --accent-soft: rgba(0, 234, 255, 0.16);
+      --accent-strong: #20f0ff;
+      --accent-secondary: #7bffb0;
+      --text-main: #e9f5ff;
+      --text-muted: #7b8da5;
+      --card-bg: rgba(7, 14, 30, 0.95);
+      --border-soft: rgba(255, 255, 255, 0.06);
+      --danger: #ff5a4f;
+      --warning: #ffb347;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-        margin: 0;
-        background: #000;
-        color: #00eaff;
-        font-family: 'Orbitron', sans-serif;
-        display: flex;
-        flex-direction: column;
+      font-family: 'Rajdhani', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #061428 0, #02030a 55%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- Layout --- */
+
+    .page-wrap {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      padding: 24px clamp(16px, 4vw, 40px) 40px;
+    }
+
+    /* Neon background elements */
+    .bg-orbit,
+    .bg-pulse {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.45;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orbit {
+      width: 420px;
+      height: 420px;
+      top: -120px;
+      right: -80px;
+      background: radial-gradient(circle, rgba(0,234,255,0.6), transparent 60%);
+      animation: orbit 26s linear infinite;
+    }
+
+    .bg-pulse {
+      width: 380px;
+      height: 380px;
+      bottom: -140px;
+      left: -80px;
+      background: radial-gradient(circle, rgba(123,255,176,0.45), transparent 60%);
+      animation: pulse 18s ease-in-out infinite;
+    }
+
+    @keyframes orbit {
+      0% { transform: translate(0,0) rotate(0deg); opacity: 0.4; }
+      50% { transform: translate(-30px,20px) rotate(180deg); opacity: 0.6; }
+      100% { transform: translate(0,0) rotate(360deg); opacity: 0.4; }
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: .35; }
+      50% { transform: scale(1.18); opacity: .55; }
+    }
+
+    header {
+      position: relative;
+      z-index: 2;
+      max-width: 1220px;
+      margin: 0 auto 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #ffffff 0, #00eaff 18%, #001520 55%, #000 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 14px rgba(0,234,255,0.55),
+        0 0 40px rgba(0,234,255,0.28);
+      overflow: hidden;
+    }
+
+    .brand-logo img {
+      width: 130%;
+      height: 130%;
+      object-fit: contain;
+      transform: translateY(4%);
+    }
+
+    .brand-text-main {
+      font-family: 'Orbitron', system-ui, sans-serif;
+      letter-spacing: 0.16em;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .brand-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: radial-gradient(circle at top, rgba(0,234,255,0.16), rgba(3,6,20,0.96));
+      backdrop-filter: blur(14px);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-secondary);
+      box-shadow: 0 0 8px var(--accent-secondary);
+    }
+
+    main {
+      position: relative;
+      z-index: 2;
+      max-width: 1220px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    /* --- Hero --- */
+
+    .hero-kicker {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--accent-secondary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent-secondary), transparent);
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', system-ui, sans-serif;
+      font-size: clamp(32px, 4vw, 40px);
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 12px;
+    }
+
+    .hero-title span {
+      color: var(--accent-strong);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.6;
+      margin-bottom: 26px;
+    }
+
+    .hero-sub b {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 10px 20px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.22s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top left, #4bf7ff, #00b5ff 40%, #0071ff 100%);
+      border-color: rgba(0, 234, 255, 0.5);
+      box-shadow:
+        0 0 18px rgba(0, 234, 255, 0.6),
+        0 0 50px rgba(0, 234, 255, 0.35);
+      color: #021018;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 30px rgba(0, 234, 255, 0.8),
+        0 0 80px rgba(0, 117, 255, 0.6);
+    }
+
+    .btn-ghost {
+      background: rgba(0,0,0,0.5);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(13,26,52,0.96);
+      border-color: rgba(0, 234, 255, 0.45);
+      color: var(--accent-strong);
+      box-shadow: 0 0 18px rgba(0,234,255,0.3);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-meta-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    /* --- Right panel: holographic system card --- */
+
+    .right-panel {
+      position: relative;
+      perspective: 1600px;
+    }
+
+    .card-3d {
+      position: relative;
+      border-radius: 22px;
+      padding: 22px 22px 20px;
+      background: radial-gradient(circle at top, rgba(0,234,255,0.22), rgba(1,5,18,0.98));
+      border: 1px solid rgba(171, 212, 255, 0.12);
+      box-shadow:
+        0 24px 80px rgba(0,0,0,0.8),
+        0 0 60px rgba(0,234,255,0.18);
+      transform: rotateX(14deg) rotateY(-16deg);
+      transform-origin: center;
+      animation: float 10s ease-in-out infinite alternate;
+      overflow: hidden;
+    }
+
+    @keyframes float {
+      0% { transform: rotateX(16deg) rotateY(-18deg) translateY(0); }
+      50% { transform: rotateX(12deg) rotateY(-12deg) translateY(-8px); }
+      100% { transform: rotateX(18deg) rotateY(-16deg) translateY(0); }
+    }
+
+    .card-3d-inner {
+      position: relative;
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      background: linear-gradient(150deg, rgba(6,16,36,0.98), rgba(3,10,24,0.98));
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      overflow: hidden;
+    }
+
+    .card-glow-ring {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,234,255,0.28);
+      left: -120px;
+      top: -160px;
+      box-shadow: 0 0 40px rgba(0,234,255,0.7);
+      opacity: 0.35;
+      filter: blur(1px);
+    }
+
+    .card-triangle-img-wrap {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-triangle-inner-glow {
+      position: absolute;
+      inset: 20px;
+      background: radial-gradient(circle, rgba(0,234,255,0.75), transparent 70%);
+      filter: blur(18px);
+      opacity: 0.7;
+    }
+
+    .card-triangle-img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow:
+        0 0 24px rgba(0,234,255,0.7),
+        0 0 60px rgba(0,234,255,0.5);
+      background: radial-gradient(circle at top, #0cf, #00304e 60%, #000 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-triangle-img img {
+      width: 140%;
+      height: 140%;
+      object-fit: contain;
+      transform: translateY(4%);
+    }
+
+    .card-graph-lines {
+      position: absolute;
+      inset: 30px 10px auto;
+      height: 60%;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 100% 18px;
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .card-ecosystem {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    .ecosystem-pill {
+      background: rgba(5,18,40,0.96);
+      border-radius: 11px;
+      padding: 10px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .ecosystem-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    .ecosystem-name {
+      font-size: 13px;
+      font-family: 'Orbitron', system-ui, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .ecosystem-name span {
+      color: var(--accent-secondary);
+    }
+
+    .ecosystem-name.danger span {
+      color: var(--danger);
+    }
+
+    .ecosystem-name.warm span {
+      color: var(--warning);
+    }
+
+    .card-metrics {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .metric-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(7,18,38,0.96);
+    }
+
+    .metric-dot-green {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #7bffb0;
+      box-shadow: 0 0 10px #7bffb0;
+    }
+
+    .metric-dot-blue {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00eaff;
+      box-shadow: 0 0 10px #00eaff;
+    }
+
+    .card-footer-note {
+      margin-top: 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(146, 168, 204, 0.8);
+      opacity: 0.9;
+    }
+
+    /* --- Ecosystem row under hero --- */
+
+    .ecosystem-row {
+      position: relative;
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .eco-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 10px 12px 12px;
+      border: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .eco-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .eco-title {
+      font-size: 13px;
+      font-family: 'Orbitron', system-ui, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eco-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* --- Footer --- */
+
+    footer {
+      position: relative;
+      z-index: 2;
+      max-width: 1220px;
+      margin: 40px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 10px;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    /* --- Responsive --- */
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0,1fr);
+      }
+
+      .right-panel {
+        margin-top: 24px;
+      }
+
+      header {
+        flex-direction: row;
         align-items: center;
-        justify-content: center;
-        height: 100vh;
-        text-align: center;
-        overflow: hidden;
+      }
+
+      .brand-sub {
+        display: none;
+      }
+
+      .ecosystem-row {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .card-3d {
+        transform: none;
+        animation: float-mobile 14s ease-in-out infinite alternate;
+      }
+
+      @keyframes float-mobile {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+        100% { transform: translateY(0); }
+      }
     }
 
-    .logo {
-        width: 220px;
-        margin-bottom: 30px;
-        animation: glow 3s infinite ease-in-out;
-    }
+    @media (max-width: 600px) {
+      .page-wrap {
+        padding-inline: 18px;
+      }
 
-    @keyframes glow {
-        0% { filter: drop-shadow(0px 0px 8px #00eaff); }
-        50% { filter: drop-shadow(0px 0px 16px #00eaff); }
-        100% { filter: drop-shadow(0px 0px 8px #00eaff); }
-    }
+      header {
+        margin-bottom: 22px;
+      }
 
-    h1 {
-        font-size: 34px;
-        letter-spacing: 4px;
-        margin: 0;
-        margin-bottom: 12px;
-    }
+      .ecosystem-row {
+        grid-template-columns: minmax(0,1fr);
+      }
 
-    .tagline {
-        font-size: 16px;
-        opacity: 0.8;
-        margin-bottom: 40px;
+      .hero-title {
+        font-size: 28px;
+      }
     }
-
-    .links a {
-        display: block;
-        color: #00eaff;
-        text-decoration: none;
-        margin: 12px 0;
-        font-size: 18px;
-        transition: 0.3s;
-    }
-
-    .links a:hover {
-        color: #ffffff;
-        text-shadow: 0 0 8px #00eaff;
-    }
-</style>
+  </style>
 </head>
-
 <body>
+  <div class="bg-orbit"></div>
+  <div class="bg-pulse"></div>
 
-    <img class="logo" src="logo.png" alt="B4RTA Logo"/>
+  <div class="page-wrap">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">
+          <!-- logo.png must be in same folder -->
+          <img src="logo.png" alt="B4RTA logo">
+        </div>
+        <div class="brand-block">
+          <div class="brand-text-main">B4RTA // SYSTEM</div>
+          <div class="brand-sub">Strategy • Crypto • Tech • Performance</div>
+        </div>
+      </div>
 
-    <h1>B4RTA</h1>
-    <div class="tagline">Think. Build. Evolve.</div>
+      <div class="pill">
+        <span class="pill-dot"></span>
+        <span>B4RTA Ecosystem: Mind • Body • Code • Play</span>
+      </div>
+    </header>
 
-    <div class="links">
-        <a href="https://x.com/B4RTA" target="_blank">X (Twitter)</a>
+    <main>
+      <!-- LEFT HERO -->
+      <section>
+        <div class="hero-kicker">High-IQ Digital Operator</div>
+        <h1 class="hero-title">
+          Think. <span>Build.</span> Evolve.
+        </h1>
+        <p class="hero-sub">
+          B4RTA is a <b>strategist, speculator and system architect</b> 
+          operating across crypto, tech, gaming and performance.  
+          No noise — only signal.
+        </p>
+
+        <div class="hero-actions">
+          <a href="https://x.com/B4RTA" target="_blank" class="btn btn-primary">
+            Follow Signals on X
+          </a>
+          <a href="https://tiktok.com/@b4rta" target="_blank" class="btn btn-ghost">
+            Watch Short Intel
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <span><span class="hero-meta-dot"></span> System-level thinking</span>
+          <span>Real cycle, no hopium</span>
+        </div>
+
+        <div class="ecosystem-row">
+          <div class="eco-card">
+            <div class="eco-tag">Core</div>
+            <div class="eco-title">B4RTA</div>
+            <div class="eco-desc">Macro, crypto, tech, systems. The mind of the ecosystem.</div>
+          </div>
+          <div class="eco-card">
+            <div class="eco-tag">Gaming / Media</div>
+            <div class="eco-title">GBRFLX</div>
+            <div class="eco-desc">Battlefield, FPS, hardware and hype — the entertainment wing.</div>
+          </div>
+          <div class="eco-card">
+            <div class="eco-tag">Performance</div>
+            <div class="eco-title">B4RTA FIT</div>
+            <div class="eco-desc">Running, gym, kettlebells. Discipline applied to the body.</div>
+          </div>
+          <div class="eco-card">
+            <div class="eco-tag">Infrastructure</div>
+            <div class="eco-title">BartaCore</div>
+            <div class="eco-desc">IT, systems, hardware & software built for real operators.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: HOLOGRAPHIC CARD -->
+      <aside class="right-panel">
+        <div class="card-3d">
+          <div class="card-3d-inner">
+            <div class="card-glow-ring"></div>
+            <div class="card-graph-lines"></div>
+
+            <div class="card-triangle-img-wrap">
+              <div class="card-triangle-inner-glow"></div>
+              <div class="card-triangle-img">
+                <img src="logo.png" alt="B4RTA triangle emblem" />
+              </div>
+            </div>
+
+            <div class="card-ecosystem">
+              <div class="ecosystem-pill">
+                <div class="ecosystem-label">Node</div>
+                <div class="ecosystem-name"><span>B4RTA</span> // SYSTEM</div>
+              </div>
+              <div class="ecosystem-pill">
+                <div class="ecosystem-label">Media</div>
+                <div class="ecosystem-name warm"><span>GBRFLX</span> // Gaming</div>
+              </div>
+              <div class="ecosystem-pill">
+                <div class="ecosystem-label">Body</div>
+                <div class="ecosystem-name"><span>B4RTA FIT</span></div>
+              </div>
+              <div class="ecosystem-pill">
+                <div class="ecosystem-label">Infra</div>
+                <div class="ecosystem-name danger"><span>BartaCore</span></div>
+              </div>
+            </div>
+
+            <div class="card-metrics">
+              <div class="metric-pill">
+                <div class="metric-dot-green"></div>
+                <span>Signal / Noise &gt; 1</span>
+              </div>
+              <div class="metric-pill">
+                <div class="metric-dot-blue"></div>
+                <span>Long-term game</span>
+              </div>
+            </div>
+
+            <div class="card-footer-note">
+              Operator-grade perspective across crypto, tech, gaming and performance.
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div>© 2025 B4RTA Ecosystem. All signals, no hopium.</div>
+      <div class="footer-links">
+        <a href="https://x.com/B4RTA" target="_blank">X</a>
         <a href="https://tiktok.com/@b4rta" target="_blank">TikTok</a>
         <a href="https://youtube.com/@B4RTA" target="_blank">YouTube</a>
-        <a href="mailto:contact@b4rta.co">Business Contact</a>
-    </div>
-
+        <a href="mailto:contact@b4rta.co">Contact</a>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
