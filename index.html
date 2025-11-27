@@ -2,28 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>B4RTA // System</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>B4RTA – Strategy, Crypto, Tech, Performance</title>
+  <meta name="description" content="B4RTA – strategist, speculator and system builder operating across crypto, tech, gaming and performance.">
+  
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
       --bg: #02030a;
-      --bg-alt: #050815;
+      --bg-soft: #050816;
+      --card: rgba(7, 13, 28, 0.96);
+      --border: rgba(255, 255, 255, 0.06);
       --accent: #00eaff;
-      --accent-soft: rgba(0, 234, 255, 0.16);
-      --accent-strong: #20f0ff;
-      --accent-secondary: #7bffb0;
-      --text-main: #e9f5ff;
-      --text-muted: #7b8da5;
-      --card-bg: rgba(7, 14, 30, 0.95);
-      --border-soft: rgba(255, 255, 255, 0.06);
-      --danger: #ff5a4f;
-      --warning: #ffb347;
+      --accent-soft: rgba(0, 234, 255, 0.14);
+      --accent-alt: #8bffb3;
+      --text-main: #e8f3ff;
+      --text-muted: #7f8ba0;
+      --danger: #ff5c5c;
     }
 
     * {
@@ -33,72 +32,62 @@
     }
 
     body {
-      font-family: 'Rajdhani', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #061428 0, #02030a 55%, #000 100%);
+      font-family: "Rajdhani", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        radial-gradient(circle at top, #071632 0, transparent 55%),
+        radial-gradient(circle at bottom, #03101f 0, transparent 55%),
+        var(--bg);
       color: var(--text-main);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
-    /* --- Layout --- */
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    .page-wrap {
-      position: relative;
+    .page {
       min-height: 100vh;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 18px 40px;
+      position: relative;
       overflow: hidden;
-      padding: 24px clamp(16px, 4vw, 40px) 40px;
     }
 
-    /* Neon background elements */
-    .bg-orbit,
-    .bg-pulse {
+    /* background accents */
+    .glow-top,
+    .glow-bottom {
       position: fixed;
       border-radius: 999px;
-      filter: blur(70px);
+      filter: blur(80px);
       opacity: 0.45;
       pointer-events: none;
-      z-index: 0;
+      z-index: -1;
     }
 
-    .bg-orbit {
+    .glow-top {
       width: 420px;
       height: 420px;
-      top: -120px;
+      top: -140px;
       right: -80px;
-      background: radial-gradient(circle, rgba(0,234,255,0.6), transparent 60%);
-      animation: orbit 26s linear infinite;
+      background: radial-gradient(circle, rgba(0, 234, 255, 0.6), transparent 60%);
     }
 
-    .bg-pulse {
-      width: 380px;
-      height: 380px;
+    .glow-bottom {
+      width: 360px;
+      height: 360px;
       bottom: -140px;
       left: -80px;
-      background: radial-gradient(circle, rgba(123,255,176,0.45), transparent 60%);
-      animation: pulse 18s ease-in-out infinite;
-    }
-
-    @keyframes orbit {
-      0% { transform: translate(0,0) rotate(0deg); opacity: 0.4; }
-      50% { transform: translate(-30px,20px) rotate(180deg); opacity: 0.6; }
-      100% { transform: translate(0,0) rotate(360deg); opacity: 0.4; }
-    }
-
-    @keyframes pulse {
-      0%,100% { transform: scale(1); opacity: .35; }
-      50% { transform: scale(1.18); opacity: .55; }
+      background: radial-gradient(circle, rgba(139, 255, 179, 0.45), transparent 60%);
     }
 
     header {
-      position: relative;
-      z-index: 2;
-      max-width: 1220px;
-      margin: 0 auto 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      margin-bottom: 30px;
     }
 
     .brand {
@@ -108,16 +97,16 @@
     }
 
     .brand-logo {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #ffffff 0, #00eaff 18%, #001520 55%, #000 100%);
+      background: radial-gradient(circle at 30% 20%, #ffffff 0, #00eaff 20%, #011726 55%, #000 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow:
-        0 0 14px rgba(0,234,255,0.55),
-        0 0 40px rgba(0,234,255,0.28);
+        0 0 18px rgba(0, 234, 255, 0.6),
+        0 0 42px rgba(0, 234, 255, 0.28);
       overflow: hidden;
     }
 
@@ -125,103 +114,98 @@
       width: 130%;
       height: 130%;
       object-fit: contain;
-      transform: translateY(4%);
     }
 
     .brand-text-main {
-      font-family: 'Orbitron', system-ui, sans-serif;
-      letter-spacing: 0.16em;
+      font-family: "Orbitron", system-ui, sans-serif;
       font-size: 13px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent-strong);
+    }
+
+    .brand-text-main span {
+      color: var(--accent);
     }
 
     .brand-sub {
       font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-    }
-
-    .brand-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .pill {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.06);
-      font-size: 11px;
-      text-transform: uppercase;
       letter-spacing: 0.16em;
+      text-transform: uppercase;
       color: var(--text-muted);
-      display: flex;
+      margin-top: 2px;
+    }
+
+    .tag-pill {
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: radial-gradient(circle at top, var(--accent-soft), rgba(4, 9, 22, 0.98));
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: radial-gradient(circle at top, rgba(0,234,255,0.16), rgba(3,6,20,0.96));
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(12px);
     }
 
-    .pill-dot {
-      width: 6px;
-      height: 6px;
+    .tag-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: var(--accent-secondary);
-      box-shadow: 0 0 8px var(--accent-secondary);
+      background: var(--accent-alt);
+      box-shadow: 0 0 10px var(--accent-alt);
     }
+
+    /* Layout */
 
     main {
-      position: relative;
-      z-index: 2;
-      max-width: 1220px;
-      margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-      gap: 32px;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 28px;
       align-items: center;
     }
 
-    /* --- Hero --- */
+    /* Hero left */
 
-    .hero-kicker {
+    .kicker {
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.24em;
-      color: var(--accent-secondary);
-      margin-bottom: 10px;
+      letter-spacing: 0.22em;
+      color: var(--accent-alt);
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
 
-    .hero-kicker::before {
+    .kicker::before {
       content: "";
       width: 32px;
       height: 1px;
-      background: linear-gradient(90deg, var(--accent-secondary), transparent);
+      background: linear-gradient(90deg, var(--accent-alt), transparent);
     }
 
     .hero-title {
-      font-family: 'Orbitron', system-ui, sans-serif;
-      font-size: clamp(32px, 4vw, 40px);
-      line-height: 1.1;
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: clamp(30px, 4.2vw, 40px);
       text-transform: uppercase;
       letter-spacing: 0.16em;
+      line-height: 1.1;
       margin-bottom: 12px;
     }
 
     .hero-title span {
-      color: var(--accent-strong);
+      color: var(--accent);
     }
 
     .hero-sub {
       font-size: 15px;
       color: var(--text-muted);
-      max-width: 540px;
-      line-height: 1.6;
-      margin-bottom: 26px;
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 24px;
     }
 
     .hero-sub b {
@@ -233,61 +217,63 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .btn {
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 10px 20px;
-      font-size: 13px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text-main);
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-main);
+      cursor: pointer;
       transition: 0.22s ease;
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .btn-primary {
-      background: radial-gradient(circle at top left, #4bf7ff, #00b5ff 40%, #0071ff 100%);
-      border-color: rgba(0, 234, 255, 0.5);
+      background: radial-gradient(circle at top left, #4ff7ff, #00b1ff 45%, #0070ff 100%);
+      border-color: rgba(0, 234, 255, 0.6);
+      color: #021017;
       box-shadow:
-        0 0 18px rgba(0, 234, 255, 0.6),
-        0 0 50px rgba(0, 234, 255, 0.35);
-      color: #021018;
+        0 0 20px rgba(0, 234, 255, 0.7),
+        0 0 60px rgba(0, 117, 255, 0.55);
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
       box-shadow:
-        0 0 30px rgba(0, 234, 255, 0.8),
-        0 0 80px rgba(0, 117, 255, 0.6);
+        0 0 30px rgba(0, 234, 255, 0.9),
+        0 0 80px rgba(0, 117, 255, 0.65);
     }
 
     .btn-ghost {
-      background: rgba(0,0,0,0.5);
+      background: rgba(3, 8, 20, 0.7);
     }
 
     .btn-ghost:hover {
-      background: rgba(13,26,52,0.96);
-      border-color: rgba(0, 234, 255, 0.45);
-      color: var(--accent-strong);
-      box-shadow: 0 0 18px rgba(0,234,255,0.3);
+      background: rgba(11, 20, 42, 0.98);
+      border-color: rgba(0, 234, 255, 0.5);
+      color: var(--accent);
+      box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
     }
 
     .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .hero-meta span {
@@ -296,7 +282,7 @@
       gap: 6px;
     }
 
-    .hero-meta-dot {
+    .meta-dot {
       width: 5px;
       height: 5px;
       border-radius: 50%;
@@ -304,57 +290,66 @@
       box-shadow: 0 0 8px var(--accent);
     }
 
-    /* --- Right panel: holographic system card --- */
+    /* Right card */
 
-    .right-panel {
+    .right {
       position: relative;
-      perspective: 1600px;
+      perspective: 1400px;
     }
 
-    .card-3d {
-      position: relative;
-      border-radius: 22px;
-      padding: 22px 22px 20px;
-      background: radial-gradient(circle at top, rgba(0,234,255,0.22), rgba(1,5,18,0.98));
-      border: 1px solid rgba(171, 212, 255, 0.12);
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      padding: 18px 18px 16px;
       box-shadow:
-        0 24px 80px rgba(0,0,0,0.8),
-        0 0 60px rgba(0,234,255,0.18);
-      transform: rotateX(14deg) rotateY(-16deg);
+        0 26px 80px rgba(0, 0, 0, 0.85),
+        0 0 60px rgba(0, 234, 255, 0.25);
+      transform: rotateX(14deg) rotateY(-15deg);
       transform-origin: center;
-      animation: float 10s ease-in-out infinite alternate;
+      animation: float 12s ease-in-out infinite alternate;
       overflow: hidden;
     }
 
     @keyframes float {
-      0% { transform: rotateX(16deg) rotateY(-18deg) translateY(0); }
-      50% { transform: rotateX(12deg) rotateY(-12deg) translateY(-8px); }
-      100% { transform: rotateX(18deg) rotateY(-16deg) translateY(0); }
+      0% { transform: rotateX(15deg) rotateY(-16deg) translateY(0); }
+      50% { transform: rotateX(11deg) rotateY(-10deg) translateY(-8px); }
+      100% { transform: rotateX(17deg) rotateY(-14deg) translateY(0); }
     }
 
-    .card-3d-inner {
+    .card-inner {
       position: relative;
-      border-radius: 18px;
-      padding: 18px 18px 16px;
-      background: linear-gradient(150deg, rgba(6,16,36,0.98), rgba(3,10,24,0.98));
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 16px;
+      background: linear-gradient(150deg, #050b18, #050816);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       overflow: hidden;
     }
 
-    .card-glow-ring {
+    .card-ring {
       position: absolute;
-      width: 360px;
-      height: 360px;
+      width: 340px;
+      height: 340px;
       border-radius: 50%;
-      border: 1px solid rgba(0,234,255,0.28);
+      border: 1px solid rgba(0, 234, 255, 0.3);
       left: -120px;
-      top: -160px;
-      box-shadow: 0 0 40px rgba(0,234,255,0.7);
-      opacity: 0.35;
+      top: -150px;
+      opacity: 0.4;
       filter: blur(1px);
+      box-shadow: 0 0 34px rgba(0, 234, 255, 0.8);
     }
 
-    .card-triangle-img-wrap {
+    .card-grid {
+      position: absolute;
+      inset: 40px 4px auto;
+      height: 60%;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 100% 18px;
+      opacity: 0.6;
+      mix-blend-mode: screen;
+    }
+
+    .card-logo-wrap {
       position: relative;
       width: 170px;
       height: 170px;
@@ -364,401 +359,492 @@
       justify-content: center;
     }
 
-    .card-triangle-inner-glow {
+    .card-logo-glow {
       position: absolute;
-      inset: 20px;
-      background: radial-gradient(circle, rgba(0,234,255,0.75), transparent 70%);
+      inset: 18px;
+      background: radial-gradient(circle, rgba(0, 234, 255, 0.8), transparent 70%);
       filter: blur(18px);
-      opacity: 0.7;
+      opacity: 0.75;
     }
 
-    .card-triangle-img {
+    .card-logo-bg {
       position: relative;
       width: 100%;
       height: 100%;
-      border-radius: 32px;
-      overflow: hidden;
-      box-shadow:
-        0 0 24px rgba(0,234,255,0.7),
-        0 0 60px rgba(0,234,255,0.5);
-      background: radial-gradient(circle at top, #0cf, #00304e 60%, #000 100%);
+      border-radius: 30px;
+      background: radial-gradient(circle at top, #0cf, #00324f 60%, #000 100%);
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow:
+        0 0 26px rgba(0, 234, 255, 0.7),
+        0 0 60px rgba(0, 234, 255, 0.4);
+      overflow: hidden;
     }
 
-    .card-triangle-img img {
+    .card-logo-bg img {
       width: 140%;
       height: 140%;
       object-fit: contain;
-      transform: translateY(4%);
     }
 
-    .card-graph-lines {
-      position: absolute;
-      inset: 30px 10px auto;
-      height: 60%;
-      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 100% 18px;
-      opacity: 0.7;
-      mix-blend-mode: screen;
-      pointer-events: none;
+    .card-title {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 6px;
     }
 
-    .card-ecosystem {
+    .card-main {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .eco-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 4px;
       margin-bottom: 10px;
     }
 
-    .ecosystem-pill {
-      background: rgba(5,18,40,0.96);
-      border-radius: 11px;
-      padding: 10px 11px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+    .eco-pill {
+      background: #050b18;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 8px 9px;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
-    .ecosystem-label {
-      font-size: 11px;
+    .eco-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
       color: var(--text-muted);
     }
 
-    .ecosystem-name {
-      font-size: 13px;
-      font-family: 'Orbitron', system-ui, sans-serif;
-      letter-spacing: 0.12em;
+    .eco-name {
+      font-size: 12px;
+      font-family: "Orbitron", system-ui, sans-serif;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
     }
 
-    .ecosystem-name span {
-      color: var(--accent-secondary);
+    .eco-name span {
+      color: var(--accent-alt);
     }
 
-    .ecosystem-name.danger span {
+    .eco-name.danger span {
       color: var(--danger);
     }
 
-    .ecosystem-name.warm span {
-      color: var(--warning);
+    .eco-desc {
+      font-size: 10px;
+      color: var(--text-muted);
     }
 
-    .card-metrics {
+    .card-footer {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
-      margin-top: 6px;
-      font-size: 11px;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--text-muted);
     }
 
-    .metric-pill {
+    .chip {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(7,18,38,0.96);
+      border: 1px solid var(--border);
+      background: #040918;
     }
 
-    .metric-dot-green {
+    .chip-dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #7bffb0;
-      box-shadow: 0 0 10px #7bffb0;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
     }
 
-    .metric-dot-blue {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #00eaff;
-      box-shadow: 0 0 10px #00eaff;
-    }
+    /* Ecosystem band & socials */
 
-    .card-footer-note {
-      margin-top: 10px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: rgba(146, 168, 204, 0.8);
-      opacity: 0.9;
-    }
-
-    /* --- Ecosystem row under hero --- */
-
-    .ecosystem-row {
-      position: relative;
+    .section {
       margin-top: 40px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .eco-band {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
     }
 
     .eco-card {
-      background: var(--card-bg);
+      background: var(--card);
       border-radius: 14px;
       padding: 10px 12px 12px;
-      border: 1px solid var(--border-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      border: 1px solid var(--border);
     }
 
-    .eco-tag {
-      font-size: 10px;
+    .eco-card-title {
+      font-size: 12px;
+      font-family: "Orbitron", system-ui, sans-serif;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
+      margin-bottom: 4px;
     }
 
-    .eco-title {
-      font-size: 13px;
-      font-family: 'Orbitron', system-ui, sans-serif;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .eco-desc {
+    .eco-card-desc {
       font-size: 11px;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
-    /* --- Footer --- */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
 
-    footer {
-      position: relative;
-      z-index: 2;
-      max-width: 1220px;
-      margin: 40px auto 0;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+    .social-card {
+      background: #050b18;
+      border-radius: 12px;
+      padding: 10px 11px 11px;
+      border: 1px solid var(--border);
+      font-size: 11px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .social-card:hover {
+      border-color: rgba(0, 234, 255, 0.6);
+      box-shadow: 0 0 22px rgba(0, 234, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .social-label {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      font-size: 10px;
+    }
+
+    .social-handle {
+      font-size: 12px;
+      font-family: "Orbitron", system-ui, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .social-note {
+      font-size: 10px;
+      margin-top: 3px;
+      color: var(--text-muted);
+    }
+
+    /* Contact & footer */
+
+    .contact-card {
+      margin-top: 18px;
+      background: linear-gradient(120deg, rgba(0, 234, 255, 0.14), rgba(4, 9, 22, 0.98));
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1px solid rgba(0, 234, 255, 0.4);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 10px;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .contact-card strong {
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .contact-email a {
+      color: var(--text-main);
+      font-family: "Orbitron", system-ui, sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .contact-email a:hover {
+      color: var(--accent-alt);
+    }
+
+    footer {
+      margin-top: 26px;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
       font-size: 11px;
       color: var(--text-muted);
-    }
-
-    .footer-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      justify-content: space-between;
+      gap: 8px;
     }
 
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
+    footer span {
       text-transform: uppercase;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       font-size: 10px;
     }
 
-    .footer-links a:hover {
-      color: var(--accent-strong);
-    }
-
-    /* --- Responsive --- */
+    /* Responsive */
 
     @media (max-width: 900px) {
       main {
-        grid-template-columns: minmax(0,1fr);
+        grid-template-columns: minmax(0, 1fr);
       }
 
-      .right-panel {
-        margin-top: 24px;
+      .right {
+        margin-top: 18px;
       }
 
-      header {
-        flex-direction: row;
-        align-items: center;
-      }
-
-      .brand-sub {
-        display: none;
-      }
-
-      .ecosystem-row {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
-
-      .card-3d {
+      .card {
         transform: none;
         animation: float-mobile 14s ease-in-out infinite alternate;
       }
 
       @keyframes float-mobile {
         0% { transform: translateY(0); }
-        50% { transform: translateY(-12px); }
+        50% { transform: translateY(-10px); }
         100% { transform: translateY(0); }
       }
     }
 
-    @media (max-width: 600px) {
-      .page-wrap {
-        padding-inline: 18px;
-      }
-
+    @media (max-width: 720px) {
       header {
-        margin-bottom: 22px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
       }
 
-      .ecosystem-row {
-        grid-template-columns: minmax(0,1fr);
+      .eco-band {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .hero-title {
-        font-size: 28px;
+      .social-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        padding-inline: 16px;
+      }
+
+      .eco-band {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .social-grid {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
   </style>
 </head>
 <body>
-  <div class="bg-orbit"></div>
-  <div class="bg-pulse"></div>
+  <div class="glow-top"></div>
+  <div class="glow-bottom"></div>
 
-  <div class="page-wrap">
+  <div class="page">
     <header>
       <div class="brand">
         <div class="brand-logo">
-          <!-- logo.png must be in same folder -->
-          <img src="logo.png" alt="B4RTA logo">
+          <!-- Put your B4RTA logo as logo.png in same folder -->
+          <img src="logo.png" alt="B4RTA logo" />
         </div>
-        <div class="brand-block">
-          <div class="brand-text-main">B4RTA // SYSTEM</div>
-          <div class="brand-sub">Strategy • Crypto • Tech • Performance</div>
+        <div>
+          <div class="brand-text-main"><span>B4RTA</span> // ECOSYSTEM</div>
+          <div class="brand-sub">Strategy • Crypto • Tech • Gaming • Performance</div>
         </div>
       </div>
 
-      <div class="pill">
-        <span class="pill-dot"></span>
-        <span>B4RTA Ecosystem: Mind • Body • Code • Play</span>
+      <div class="tag-pill">
+        <span class="tag-dot"></span>
+        <span>Built to be the operator no one can ignore</span>
       </div>
     </header>
 
     <main>
-      <!-- LEFT HERO -->
+      <!-- LEFT: HERO -->
       <section>
-        <div class="hero-kicker">High-IQ Digital Operator</div>
+        <div class="kicker">Strategist • Speculator • System Builder</div>
         <h1 class="hero-title">
           Think. <span>Build.</span> Evolve.
         </h1>
         <p class="hero-sub">
-          B4RTA is a <b>strategist, speculator and system architect</b> 
-          operating across crypto, tech, gaming and performance.  
-          No noise — only signal.
+          I’m <b>B4RTA</b> – operating at the intersection of
+          <b>crypto, macro, technology, gaming and physical performance</b>.  
+          No hype cycles, no hopium – just signal, execution and long-term positioning.
         </p>
 
         <div class="hero-actions">
-          <a href="https://x.com/B4RTA" target="_blank" class="btn btn-primary">
-            Follow Signals on X
+          <a class="btn btn-primary" href="https://x.com/_B4RTA" target="_blank" rel="noreferrer">
+            Follow on X (primary)
           </a>
-          <a href="https://tiktok.com/@b4rta" target="_blank" class="btn btn-ghost">
-            Watch Short Intel
+          <a class="btn btn-ghost" href="https://www.tiktok.com/@_b4rta" target="_blank" rel="noreferrer">
+            TikTok – short intel
           </a>
         </div>
 
         <div class="hero-meta">
-          <span><span class="hero-meta-dot"></span> System-level thinking</span>
-          <span>Real cycle, no hopium</span>
+          <span><span class="meta-dot"></span> High-IQ, data-driven view on cycles</span>
+          <span>Europe-based, global reach</span>
         </div>
 
-        <div class="ecosystem-row">
-          <div class="eco-card">
-            <div class="eco-tag">Core</div>
-            <div class="eco-title">B4RTA</div>
-            <div class="eco-desc">Macro, crypto, tech, systems. The mind of the ecosystem.</div>
+        <!-- Ecosystem summary -->
+        <section class="section">
+          <div class="section-title">B4RTA Ecosystem</div>
+          <div class="eco-band">
+            <div class="eco-card">
+              <div class="eco-card-title">B4RTA</div>
+              <div class="eco-card-desc">
+                Core persona. Crypto, macro, tech, system design and strategic thinking.
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-title">GBRFLX</div>
+              <div class="eco-card-desc">
+                Gaming & tech media: PC hardware, FPS, esports-style content and experiments.
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-title">B4RTA FIT</div>
+              <div class="eco-card-desc">
+                Running, gym, kettlebells, tennis, cycling. Discipline applied to the body.
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-title">BartaCore</div>
+              <div class="eco-card-desc">
+                Future infrastructure: IT services, hardware & software for serious operators.
+              </div>
+            </div>
           </div>
-          <div class="eco-card">
-            <div class="eco-tag">Gaming / Media</div>
-            <div class="eco-title">GBRFLX</div>
-            <div class="eco-desc">Battlefield, FPS, hardware and hype — the entertainment wing.</div>
-          </div>
-          <div class="eco-card">
-            <div class="eco-tag">Performance</div>
-            <div class="eco-title">B4RTA FIT</div>
-            <div class="eco-desc">Running, gym, kettlebells. Discipline applied to the body.</div>
-          </div>
-          <div class="eco-card">
-            <div class="eco-tag">Infrastructure</div>
-            <div class="eco-title">BartaCore</div>
-            <div class="eco-desc">IT, systems, hardware & software built for real operators.</div>
-          </div>
-        </div>
+        </section>
       </section>
 
-      <!-- RIGHT: HOLOGRAPHIC CARD -->
-      <aside class="right-panel">
-        <div class="card-3d">
-          <div class="card-3d-inner">
-            <div class="card-glow-ring"></div>
-            <div class="card-graph-lines"></div>
+      <!-- RIGHT: SYSTEM CARD -->
+      <aside class="right">
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-ring"></div>
+            <div class="card-grid"></div>
 
-            <div class="card-triangle-img-wrap">
-              <div class="card-triangle-inner-glow"></div>
-              <div class="card-triangle-img">
-                <img src="logo.png" alt="B4RTA triangle emblem" />
+            <div class="card-logo-wrap">
+              <div class="card-logo-glow"></div>
+              <div class="card-logo-bg">
+                <img src="logo.png" alt="B4RTA emblem" />
               </div>
             </div>
 
-            <div class="card-ecosystem">
-              <div class="ecosystem-pill">
-                <div class="ecosystem-label">Node</div>
-                <div class="ecosystem-name"><span>B4RTA</span> // SYSTEM</div>
+            <div class="card-title">Active Stack</div>
+            <div class="card-main">B4RTA // LIVE SYSTEM</div>
+
+            <div class="eco-grid">
+              <div class="eco-pill">
+                <div class="eco-label">Core</div>
+                <div class="eco-name"><span>B4RTA</span> – Strategy</div>
+                <div class="eco-desc">Signals, theses and execution plans.</div>
               </div>
-              <div class="ecosystem-pill">
-                <div class="ecosystem-label">Media</div>
-                <div class="ecosystem-name warm"><span>GBRFLX</span> // Gaming</div>
+              <div class="eco-pill">
+                <div class="eco-label">Media</div>
+                <div class="eco-name"><span>GBRFLX</span> – Gaming</div>
+                <div class="eco-desc">Hardware, FPS, tech & content testing.</div>
               </div>
-              <div class="ecosystem-pill">
-                <div class="ecosystem-label">Body</div>
-                <div class="ecosystem-name"><span>B4RTA FIT</span></div>
+              <div class="eco-pill">
+                <div class="eco-label">Body</div>
+                <div class="eco-name"><span>B4RTA FIT</span></div>
+                <div class="eco-desc">Daily work on strength, speed and endurance.</div>
               </div>
-              <div class="ecosystem-pill">
-                <div class="ecosystem-label">Infra</div>
-                <div class="ecosystem-name danger"><span>BartaCore</span></div>
+              <div class="eco-pill">
+                <div class="eco-label">Infra</div>
+                <div class="eco-name danger"><span>BartaCore</span></div>
+                <div class="eco-desc">Long-term build-out of service & infra layer.</div>
               </div>
             </div>
 
-            <div class="card-metrics">
-              <div class="metric-pill">
-                <div class="metric-dot-green"></div>
-                <span>Signal / Noise &gt; 1</span>
+            <div class="card-footer">
+              <div class="chip">
+                <span class="chip-dot"></span>
+                <span>Signal &gt; Noise</span>
               </div>
-              <div class="metric-pill">
-                <div class="metric-dot-blue"></div>
-                <span>Long-term game</span>
-              </div>
-            </div>
-
-            <div class="card-footer-note">
-              Operator-grade perspective across crypto, tech, gaming and performance.
+              <span>Operator mindset only.</span>
             </div>
           </div>
         </div>
       </aside>
     </main>
 
-    <footer>
-      <div>© 2025 B4RTA Ecosystem. All signals, no hopium.</div>
-      <div class="footer-links">
-        <a href="https://x.com/B4RTA" target="_blank">X</a>
-        <a href="https://tiktok.com/@b4rta" target="_blank">TikTok</a>
-        <a href="https://youtube.com/@B4RTA" target="_blank">YouTube</a>
-        <a href="mailto:contact@b4rta.co">Contact</a>
+    <!-- SOCIALS + CONTACT -->
+    <section class="section">
+      <div class="section-title">Channels</div>
+      <div class="social-grid">
+        <a class="social-card" href="https://x.com/_B4RTA" target="_blank" rel="noreferrer">
+          <div class="social-label">Primary</div>
+          <div class="social-handle">@_B4RTA</div>
+          <div class="social-note">Core thoughts, crypto, macro & tech threads.</div>
+        </a>
+        <a class="social-card" href="https://www.tiktok.com/@_b4rta" target="_blank" rel="noreferrer">
+          <div class="social-label">Short Form</div>
+          <div class="social-handle">@_b4rta</div>
+          <div class="social-note">Fast takes, charts, clips and experiments.</div>
+        </a>
+        <a class="social-card" href="https://www.instagram.com/b4rta.co/" target="_blank" rel="noreferrer">
+          <div class="social-label">Visual</div>
+          <div class="social-handle">@b4rta.co</div>
+          <div class="social-note">Lifestyle, fitness, setup and brand visuals.</div>
+        </a>
+        <a class="social-card" href="https://youtube.com/@b4rtahq" target="_blank" rel="noreferrer">
+          <div class="social-label">Long Form</div>
+          <div class="social-handle">@b4rtahq</div>
+          <div class="social-note">Deep dives, breakdowns and full sessions.</div>
+        </a>
       </div>
+
+      <div class="contact-card">
+        <div>
+          <strong>Business & Collaboration</strong><br />
+          For brand deals, partnerships or serious questions – reach out directly.
+        </div>
+        <div class="contact-email">
+          <a href="mailto:hi@b4rta.co">hi@b4rta.co</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2025 B4RTA Ecosystem</span>
+      <span>Mind • Body • Tech • Strategy</span>
     </footer>
   </div>
 </body>
