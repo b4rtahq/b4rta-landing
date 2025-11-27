@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>B4RTA</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        color: #00eaff;
+        font-family: 'Orbitron', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .logo {
+        width: 220px;
+        margin-bottom: 30px;
+        animation: glow 3s infinite ease-in-out;
+    }
+
+    @keyframes glow {
+        0% { filter: drop-shadow(0px 0px 8px #00eaff); }
+        50% { filter: drop-shadow(0px 0px 16px #00eaff); }
+        100% { filter: drop-shadow(0px 0px 8px #00eaff); }
+    }
+
+    h1 {
+        font-size: 34px;
+        letter-spacing: 4px;
+        margin: 0;
+        margin-bottom: 12px;
+    }
+
+    .tagline {
+        font-size: 16px;
+        opacity: 0.8;
+        margin-bottom: 40px;
+    }
+
+    .links a {
+        display: block;
+        color: #00eaff;
+        text-decoration: none;
+        margin: 12px 0;
+        font-size: 18px;
+        transition: 0.3s;
+    }
+
+    .links a:hover {
+        color: #ffffff;
+        text-shadow: 0 0 8px #00eaff;
+    }
+</style>
+</head>
+
+<body>
+
+    <img class="logo" src="logo.png" alt="B4RTA Logo"/>
+
+    <h1>B4RTA</h1>
+    <div class="tagline">Think. Build. Evolve.</div>
+
+    <div class="links">
+        <a href="https://x.com/B4RTA" target="_blank">X (Twitter)</a>
+        <a href="https://tiktok.com/@b4rta" target="_blank">TikTok</a>
+        <a href="https://youtube.com/@B4RTA" target="_blank">YouTube</a>
+        <a href="mailto:contact@b4rta.co">Business Contact</a>
+    </div>
+
+</body>
+</html>
