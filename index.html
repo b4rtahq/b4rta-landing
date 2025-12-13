@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>B4RTA — Strategy Layer</title>
+  <meta name="description" content="B4RTA builds a long-horizon strategy layer across markets, systems, tech, and performance — documented, tested, no theatrics." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg:#020910;
+      --card:rgba(3,16,22,.96);
+      --border:rgba(255,255,255,.07);
+
+      --accent:#25e3ff;
+      --accent-soft:rgba(37,227,255,.16);
+      --accent-alt:#4ce1d1;
+
+      --text:#e8f3ff;
+      --muted:#7f8ba0;
+      --danger:#ff5c5c;
+
+      --shadow:0 26px 80px rgba(0,0,0,.85);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:"Rajdhani",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(37,227,255,.18) 0, transparent 46%),
+        radial-gradient(circle at 92% 78%, rgba(76,225,209,.12) 0, transparent 55%),
+        radial-gradient(circle at 50% 110%, rgba(2,29,40,.9) 0, transparent 55%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1180px;margin:0 auto;padding:26px 18px 56px}
+
+    /* ambient glows */
+    .glow{
+      position:fixed;pointer-events:none;z-index:-1;
+      filter:blur(90px);opacity:.55;border-radius:999px;
+    }
+    .glow.one{
+      width:520px;height:520px;top:-220px;right:-160px;
+      background:radial-gradient(circle, rgba(37,227,255,.8), transparent 62%);
+    }
+    .glow.two{
+      width:440px;height:440px;bottom:-240px;left:-180px;
+      background:radial-gradient(circle, rgba(76,225,209,.55), transparent 62%);
+    }
+
+    /* header */
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px;margin-bottom:22px;
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:44px;height:44px;border-radius:999px;
+      background:radial-gradient(circle at 30% 20%, #fff 0, #25e3ff 22%, #021d28 60%, #000 100%);
+      box-shadow:0 0 18px rgba(37,227,255,.9), 0 0 44px rgba(37,227,255,.35);
+      overflow:hidden;display:flex;align-items:center;justify-content:center;
+    }
+    .logo img{width:130%;height:130%;object-fit:contain}
+
+    .brand-title{
+      font-family:"Orbitron",system-ui,sans-serif;
+      letter-spacing:.18em;text-transform:uppercase;font-size:13px;
+    }
+    .brand-title span{color:var(--accent)}
+    .brand-sub{
+      color:var(--muted);font-size:11px;letter-spacing:.12em;
+      text-transform:uppercase;margin-top:2px;
+    }
+
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 12px;border-radius:999px;
+      border:1px solid var(--border);
+      background:radial-gradient(circle at top, var(--accent-soft), rgba(2,15,22,.98));
+      backdrop-filter:blur(10px);
+      color:var(--muted);
+      font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--accent-alt);box-shadow:0 0 10px var(--accent-alt)}
+
+    /* hero layout */
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+      gap:26px;align-items:start;margin-top:16px;
+    }
+
+    .kicker{
+      color:var(--accent-alt);
+      font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+      display:flex;align-items:center;gap:10px;margin-bottom:10px;
+    }
+    .kicker:before{
+      content:"";width:34px;height:1px;
+      background:linear-gradient(90deg, var(--accent-alt), transparent);
+    }
+
+    h1{
+      font-family:"Orbitron",system-ui,sans-serif;
+      text-transform:uppercase;letter-spacing:.16em;
+      font-size:clamp(30px,4.6vw,44px);
+      line-height:1.08;margin-bottom:12px;
+    }
+    h1 span{color:var(--accent)}
+
+    .lead{
+      color:var(--muted);
+      font-size:16px;line-height:1.7;max-width:640px;
+      margin-bottom:18px;
+    }
+    .lead b{color:var(--text);font-weight:600}
+
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0 18px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 18px;border-radius:999px;
+      border:1px solid var(--border);
+      font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+      background:rgba(2,16,23,.6);
+      transition:.22s ease;white-space:nowrap;
+    }
+    .btn.primary{
+      background:radial-gradient(circle at top left, #25e3ff, #0098cf 45%, #005b80 100%);
+      border-color:rgba(37,227,255,.85);
+      color:#021017;
+      box-shadow:0 0 22px rgba(37,227,255,.75), 0 0 70px rgba(0,152,207,.5);
+    }
+    .btn.primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 0 30px rgba(37,227,255,1), 0 0 90px rgba(0,152,207,.7);
+    }
+    .btn.ghost:hover{
+      border-color:rgba(37,227,255,.6);
+      color:var(--accent-alt);
+      box-shadow:0 0 20px rgba(37,227,255,.35);
+      transform:translateY(-1px);
+    }
+    .btn.lab{
+      background:rgba(3,23,34,.78);
+      border-color:rgba(255,255,255,.08);
+    }
+    .btn.lab:hover{
+      border-color:rgba(76,225,209,.75);
+      box-shadow:0 0 18px rgba(76,225,209,.25);
+      transform:translateY(-1px);
+      color:var(--accent-alt);
+    }
+
+    .meta{
+      display:grid;gap:6px;color:var(--muted);
+      font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+      margin-top:2px;
+    }
+    .meta span{display:inline-flex;align-items:center;gap:7px}
+    .mDot{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+
+    /* right panel */
+    .panel{
+      position:relative;
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      background:var(--card);
+      box-shadow:var(--shadow), 0 0 60px rgba(37,227,255,.22);
+      overflow:hidden;
+      transform:rotateX(12deg) rotateY(-12deg);
+      transform-origin:center;
+      animation:float 12s ease-in-out infinite alternate;
+    }
+    @keyframes float{
+      0%{transform:rotateX(13deg) rotateY(-14deg) translateY(0)}
+      50%{transform:rotateX(10deg) rotateY(-9deg) translateY(-10px)}
+      100%{transform:rotateX(15deg) rotateY(-12deg) translateY(0)}
+    }
+
+    .panelInner{
+      position:relative;padding:18px;
+      background:linear-gradient(150deg, #031722, #050816);
+      border-radius:calc(var(--radius) - 2px);
+      margin:10px;border:1px solid rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+    .ring{
+      position:absolute;width:360px;height:360px;border-radius:50%;
+      border:1px solid rgba(37,227,255,.35);
+      left:-140px;top:-170px;opacity:.5;
+      box-shadow:0 0 34px rgba(37,227,255,.85);
+    }
+    .grid{
+      position:absolute;inset:48px 6px auto;height:62%;
+      background-image:linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size:100% 18px;opacity:.6;mix-blend-mode:screen;
+    }
+
+    .badgeLogo{
+      width:166px;height:166px;margin:0 auto 12px;
+      position:relative;display:flex;align-items:center;justify-content:center;
+    }
+    .badgeGlow{
+      position:absolute;inset:18px;
+      background:radial-gradient(circle, rgba(37,227,255,.92), transparent 70%);
+      filter:blur(18px);opacity:.9;
+    }
+    .badge{
+      width:100%;height:100%;border-radius:28px;
+      background:radial-gradient(circle at top, #25e3ff, #015c7e 60%, #000 100%);
+      box-shadow:0 0 28px rgba(37,227,255,.85), 0 0 70px rgba(37,227,255,.45);
+      overflow:hidden;display:flex;align-items:center;justify-content:center;
+      position:relative;
+    }
+    .badge img{width:140%;height:140%;object-fit:contain}
+
+    .panelTitle{
+      text-align:center;color:var(--muted);
+      font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+      margin-bottom:6px;
+    }
+    .panelMain{
+      text-align:center;font-family:"Orbitron",system-ui,sans-serif;
+      font-size:14px;letter-spacing:.14em;text-transform:uppercase;
+      margin-bottom:14px;
+    }
+    .panelMain span{color:var(--accent-alt)}
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:10px;margin-bottom:12px;
+    }
+    .step{
+      background:#031722;border:1px solid var(--border);
+      border-radius:12px;padding:10px 10px 11px;
+    }
+    .stepLabel{
+      color:var(--muted);font-size:10px;letter-spacing:.16em;
+      text-transform:uppercase;margin-bottom:4px;
+    }
+    .stepName{
+      font-family:"Orbitron",system-ui,sans-serif;
+      text-transform:uppercase;letter-spacing:.13em;
+      font-size:12px;margin-bottom:4px;
+    }
+    .stepName span{color:var(--accent-alt)}
+    .stepName.danger span{color:var(--danger)}
+    .stepDesc{color:var(--muted);font-size:11px;line-height:1.45}
+
+    .panelFooter{
+      display:flex;justify-content:space-between;gap:10px;align-items:center;
+      color:var(--muted);font-size:10px;letter-spacing:.14em;
+      text-transform:uppercase;margin-top:2px;
+    }
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;border:1px solid var(--border);
+      background:#021017;white-space:nowrap;
+    }
+    .chipDot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+
+    /* sections */
+    .section{margin-top:34px}
+    .sectionHead{
+      display:flex;justify-content:space-between;align-items:baseline;
+      gap:12px;margin-bottom:12px;
+    }
+    .sectionTitle{
+      color:var(--muted);font-size:13px;
+      letter-spacing:.18em;text-transform:uppercase;
+    }
+
+    /* CHANGED: section sublines now “policy/structure language”, not explanatory */
+    .sectionHint{
+      color:rgba(127,139,160,.78);
+      font-size:10px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    .grid4{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:14px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px 12px 14px;
+    }
+
+    /* FIX: title + tag lines stable */
+    .cardTitle{
+      font-family:"Orbitron",system-ui,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:12px;
+      margin-bottom:6px;
+      display:block;
+    }
+    .cardTitle small{
+      display:block;
+      margin-top:6px;
+      color:var(--accent-alt);
+      font-family:"Rajdhani",system-ui,sans-serif;
+      letter-spacing:.18em;
+      font-size:10px;
+      text-transform:uppercase;
+      opacity:.9;
+    }
+    .cardDesc{color:var(--muted);font-size:12px;line-height:1.55}
+
+    .cardLinkRow{margin-top:10px}
+    .miniLink{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(3,23,34,.7);
+      font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--accent-alt);
+      transition:.2s ease;
+    }
+    .miniLink:hover{
+      border-color:rgba(76,225,209,.75);
+      box-shadow:0 0 18px rgba(76,225,209,.25);
+      transform:translateY(-1px);
+    }
+
+    /* socials */
+    .socials{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:12px;margin-top:12px;
+    }
+    .social{
+      background:#031722;border:1px solid var(--border);
+      border-radius:12px;padding:11px 11px 12px;
+      transition:.2s ease;
+    }
+    .social:hover{
+      border-color:rgba(37,227,255,.75);
+      box-shadow:0 0 22px rgba(37,227,255,.35);
+      transform:translateY(-1px);
+    }
+    .socialLabel{
+      color:var(--muted);
+      text-transform:uppercase;letter-spacing:.18em;
+      font-size:10px;margin-bottom:4px;
+    }
+    .socialHandle{
+      font-family:"Orbitron",system-ui,sans-serif;
+      text-transform:uppercase;letter-spacing:.12em;
+      font-size:12px;color:var(--accent-alt);
+    }
+    .socialNote{
+      color:var(--muted);font-size:11px;margin-top:4px;line-height:1.45;
+    }
+
+    /* contact */
+    .contact{
+      margin-top:16px;
+      background:linear-gradient(120deg, rgba(37,227,255,.18), rgba(2,16,23,.98));
+      border:1px solid rgba(37,227,255,.55);
+      border-radius:14px;
+      padding:12px 14px;
+      display:flex;flex-wrap:wrap;
+      justify-content:space-between;
+      gap:10px;align-items:center;
+    }
+    .contact strong{
+      letter-spacing:.14em;text-transform:uppercase;font-size:11px;
+    }
+    .contact p{color:var(--muted);font-size:12px;margin-top:4px;line-height:1.55}
+    .mail a{
+      font-family:"Orbitron",system-ui,sans-serif;
+      text-transform:uppercase;letter-spacing:.14em;font-size:11px;
+    }
+    .mail a:hover{color:var(--accent-alt)}
+
+    footer{
+      margin-top:26px;border-top:1px solid var(--border);
+      padding-top:12px;color:var(--muted);
+      display:flex;flex-wrap:wrap;justify-content:space-between;
+      gap:10px;font-size:11px;
+    }
+    footer span{text-transform:uppercase;letter-spacing:.16em;font-size:10px}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:minmax(0,1fr)}
+      .panel{transform:none;animation:floatMobile 14s ease-in-out infinite alternate}
+      @keyframes floatMobile{
+        0%{transform:translateY(0)}
+        50%{transform:translateY(-10px)}
+        100%{transform:translateY(0)}
+      }
+    }
+    @media (max-width:820px){
+      .grid4{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .socials{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .steps{grid-template-columns:repeat(2, minmax(0,1fr))}
+    }
+    @media (max-width:520px){
+      header{flex-direction:column;align-items:flex-start;gap:10px}
+      .grid4,.steps{grid-template-columns:minmax(0,1fr)}
+      .pill{white-space:normal}
+      .sectionHint{white-space:normal}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <img src="logo.png" alt="B4RTA logo" />
+        </div>
+        <div>
+          <div class="brand-title"><span>B4RTA</span> // STRATEGY LAYER</div>
+          <div class="brand-sub">Long-horizon systems across markets, tech, and performance — blueprint for BartaCore.</div>
+        </div>
+      </div>
+
+      <div class="pill">
+        <span class="dot"></span>
+        <span>2026 build. Proof over promises.</span>
+      </div>
+    </header>
+
+    <main class="hero">
+      <!-- LEFT -->
+      <section>
+        <div class="kicker">Strategy • Systems • Execution</div>
+
+        <h1>Build the stack. <span>Earn the trust.</span> Repeat.</h1>
+
+        <p class="lead">
+          I’m <b>B4RTA</b>. This is a public build of a strategy layer designed to survive cycles —
+          not to win a week.
+          <br /><br />
+          Focus: <b>market structure</b>, <b>systems thinking</b>, <b>technical depth</b>, and <b>personal performance</b>.
+          Everything is documented, tested, and iterated. If it’s not real, it doesn’t ship.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="https://x.com/_B4RTA" target="_blank" rel="noreferrer">
+            X — main signal stream
+          </a>
+          <a class="btn ghost" href="#ecosystem">
+            The ecosystem map
+          </a>
+          <a class="btn ghost" href="https://www.tiktok.com/@_b4rta" target="_blank" rel="noreferrer">
+            TikTok — short experiments
+          </a>
+          <a class="btn lab" href="https://b4rta.co/gbrflx" target="_blank" rel="noreferrer">
+            GBRFLX — lab feed
+          </a>
+        </div>
+
+        <div class="meta">
+          <span><span class="mDot"></span> Default mode: long horizon, clear risk, no narrative addiction.</span>
+          <span><span class="mDot"></span> I don’t sell a persona — I build a track record.</span>
+          <span><span class="mDot"></span> The endgame is execution: BartaCore, teams, infrastructure.</span>
+        </div>
+
+        <!-- Operating rules -->
+        <section class="section">
+          <div class="sectionHead">
+            <div class="sectionTitle">Operating rules</div>
+            <div class="sectionHint">baseline standards</div>
+          </div>
+
+          <div class="grid4">
+            <div class="card">
+              <div class="cardTitle">Signal discipline</div>
+              <div class="cardDesc">
+                If I can’t explain it clearly, I’m not ready to act on it. If I can’t size it properly, I don’t take it.
+                I’d rather miss moves than build bad habits.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="cardTitle">Systems &gt; opinions</div>
+              <div class="cardDesc">
+                I’m building repeatable frameworks: notes, checklists, tooling, and decision logs —
+                the kind of stack a team can inherit and improve.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="cardTitle">Reality filter</div>
+              <div class="cardDesc">
+                If it doesn’t survive real constraints (time, money, stress), it’s not a system — it’s a fantasy.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="cardTitle">Long horizon</div>
+              <div class="cardDesc">
+                I optimize for compounding: skills, health, trust, capital — and I keep receipts.
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- RIGHT -->
+      <aside>
+        <div class="panel">
+          <div class="panelInner">
+            <div class="ring"></div>
+            <div class="grid"></div>
+
+            <div class="badgeLogo">
+              <div class="badgeGlow"></div>
+              <div class="badge">
+                <img src="logo.png" alt="B4RTA emblem" />
+              </div>
+            </div>
+
+            <div class="panelTitle">Current phase</div>
+            <div class="panelMain">Turning <span>strategy</span> into a stack</div>
+
+            <div class="steps">
+              <div class="step">
+                <div class="stepLabel">Now (2026)</div>
+                <div class="stepName"><span>Learn &amp; map</span></div>
+                <div class="stepDesc">Sharper theses, cleaner notes, fewer assumptions, more testing.</div>
+              </div>
+
+              <div class="step">
+                <div class="stepLabel">Next</div>
+                <div class="stepName"><span>Publish &amp; refine</span></div>
+                <div class="stepDesc">Consistent output: X for signal, video for clarity, logs for proof.</div>
+              </div>
+
+              <div class="step">
+                <div class="stepLabel">12–24 months</div>
+                <div class="stepName danger"><span>BartaCore</span></div>
+                <div class="stepDesc">Translate the stack into real infrastructure and client execution in Europe.</div>
+              </div>
+
+              <div class="step">
+                <div class="stepLabel">Standard</div>
+                <div class="stepName"><span>Integrity standard</span></div>
+                <div class="stepDesc">Claims require evidence. Tested work only.</div>
+              </div>
+            </div>
+
+            <div class="panelFooter">
+              <div class="chip"><span class="chipDot"></span><span>Strategy in progress</span></div>
+              <span>Judge over years, not days.</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Ecosystem -->
+    <section id="ecosystem" class="section">
+      <div class="sectionHead">
+        <div class="sectionTitle">Ecosystem</div>
+        <div class="sectionHint">core + satellites</div>
+      </div>
+
+      <div class="grid4">
+        <div class="card">
+          <div class="cardTitle">B4RTA <small>// core</small></div>
+          <div class="cardDesc">
+            Strategy layer: markets, systems, tech direction, decision-making and long-term positioning.
+            This is the “brain” that everything else inherits.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardTitle">GBRFLX <small>// lab</small></div>
+          <div class="cardDesc">
+            Gaming &amp; tech as a testing ground: hardware, setups, Linux/PC experiments.
+            Not a separate identity — a sandbox that supports the main stack.
+          </div>
+          <div class="cardLinkRow">
+            <a class="miniLink" href="https://b4rta.co/gbrflx" target="_blank" rel="noreferrer">
+              Visit GBRFLX → experiments &amp; builds
+            </a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardTitle">B4RTA FIT <small>// engine</small></div>
+          <div class="cardDesc">
+            Physical performance: running, gym, kettlebells, tennis, bike.
+            Same principle: discipline, metrics, progression, consistency.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardTitle">BartaCore <small>// execution</small></div>
+          <div class="cardDesc">
+            The future infrastructure company. B4RTA designs the blueprint — BartaCore delivers it for teams and clients.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Socials + Contact -->
+    <section class="section">
+      <div class="sectionHead">
+        <div class="sectionTitle">Where I’m active</div>
+        <div class="sectionHint">distribution layer</div>
+      </div>
+
+      <div class="socials">
+        <a class="social" href="https://x.com/_B4RTA" target="_blank" rel="noreferrer">
+          <div class="socialLabel">Primary</div>
+          <div class="socialHandle">@_B4RTA</div>
+          <div class="socialNote">Threads, charts, decisions, and system-level takes.</div>
+        </a>
+
+        <a class="social" href="https://www.tiktok.com/@_b4rta" target="_blank" rel="noreferrer">
+          <div class="socialLabel">Short form</div>
+          <div class="socialHandle">@_b4rta</div>
+          <div class="socialNote">Fast clips, raw tests, quick breakdowns.</div>
+        </a>
+
+        <a class="social" href="https://www.instagram.com/b4rta.co/" target="_blank" rel="noreferrer">
+          <div class="socialLabel">Visual</div>
+          <div class="socialHandle">@b4rta.co</div>
+          <div class="socialNote">Setups, progress, moments around the work.</div>
+        </a>
+
+        <a class="social" href="https://youtube.com/@b4rtahq" target="_blank" rel="noreferrer">
+          <div class="socialLabel">Long form</div>
+          <div class="socialHandle">@b4rtahq</div>
+          <div class="socialNote">Deep dives when 30 seconds isn’t enough.</div>
+        </a>
+      </div>
+
+      <div class="contact">
+        <div>
+          <strong>Business • Ideas • Collaboration</strong>
+          <p>If you’re building serious systems, infra, or long-horizon projects and see overlap — send a short, clear email.</p>
+        </div>
+        <div class="mail">
+          <a href="mailto:hi@b4rta.co">hi@b4rta.co</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 B4RTA</span>
+      <span>Early stage — built for a long horizon.</span>
+    </footer>
+  </div>
+</body>
+</html>
