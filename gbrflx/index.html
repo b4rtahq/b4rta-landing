@@ -78,9 +78,9 @@
       min-width:0;
     }
 
-    /* ✅ FINAL SMALL LOGO */
+    /* small logo */
     .logo{
-      width:52px;height:52px;border-radius:14px;
+      width:46px;height:46px;border-radius:14px;
       overflow:hidden;
       display:flex;align-items:center;justify-content:center;
       background: rgba(2,16,23,0.35);
@@ -387,10 +387,10 @@
       filter: blur(0.2px);
     }
 
-    /* ✅ FINAL BIG LOGO */
+    /* big logo */
     .badgeWrap{
       position:relative;
-      width:220px;height:220px;
+      width:180px;height:180px;
       margin: 0 auto 10px;
       display:flex;align-items:center;justify-content:center;
       z-index:2;
@@ -518,7 +518,7 @@
       border-radius:14px;
       padding:12px 12px 14px;
       transition: 0.2s ease;
-      overflow:hidden; /* ✅ FIX: prevent any glyphs from escaping */
+      overflow:hidden; /* prevents any glyphs from escaping */
     }
     .card:hover{
       border-color: rgba(37,227,255,0.28);
@@ -530,10 +530,8 @@
       text-transform:uppercase;
       letter-spacing:0.14em;
       font-size:12px;
-      line-height:1.15; /* ✅ FIX */
+      line-height:1.15;
       margin-bottom:8px;
-
-      /* ✅ FIX: keep long words inside */
       overflow-wrap:anywhere;
       word-break:break-word;
     }
@@ -689,12 +687,6 @@
       .grid4,.stats,.socials{grid-template-columns: minmax(0,1fr)}
       .heroLeftInner{padding:6px 2px 0}
     }
-
-    .cardTitle{
-  overflow-wrap: normal;
-  word-break: normal;
-  hyphens: none;
-}
   </style>
 </head>
 
@@ -706,8 +698,7 @@
     <header>
       <div class="brand">
         <div class="logo">
-          <img src="/gbrflx/gbrflx-logo.png" alt="GBRFLX logo">
-
+          <img src="./gbrflx-logo.png" alt="GBRFLX logo">
         </div>
         <div class="brandText">
           <div class="brandTitle"><span>GBRFLX</span> // LAB FEED</div>
@@ -766,59 +757,59 @@
             <span><span class="mDot"></span> GBRFLX supports B4RTA by turning theory into proof.</span>
           </div>
 
-          <!-- Modules -->
+          <!-- Modules (NEW, more human copy) -->
           <section id="modules" class="section">
             <div class="sectionHead">
-              <div class="sectionTitle">Test modules</div>
-              <div class="sectionHint">test → stress → result</div>
+              <div class="sectionTitle">What actually gets tested</div>
+              <div class="sectionHint">real use → stress → verdict</div>
             </div>
 
             <div class="grid4">
               <div class="card">
-                <div class="cardTitle">FPS performance <small>// real games</small></div>
+                <div class="cardTitle">Real FPS feel <small>// not benchmark theater</small></div>
                 <div class="cardDesc">
-                  Settings, frametimes, stutter checks, 1% lows. No cherry-picked runs.
+                  How smooth the game feels after 30–60 minutes: stutter, drops, input lag — the stuff charts hide.
                 </div>
                 <div class="miniList">
                   <span class="tag"><b>1%</b> lows</span>
-                  <span class="tag"><b>RT</b> on/off</span>
-                  <span class="tag"><b>DLSS</b>/FSR</span>
+                  <span class="tag"><b>Frame</b> pacing</span>
+                  <span class="tag"><b>Real</b> gameplay</span>
                 </div>
               </div>
 
               <div class="card">
-                <div class="cardTitle">Hardware builds <small>// price ↔ value</small></div>
+                <div class="cardTitle">Builds that make sense <small>// price vs sanity</small></div>
                 <div class="cardDesc">
-                  GPU/CPU combos, cooling, noise, thermals — tested for stability, not vibes.
+                  Parts tested like normal people use them: heat, noise, power — and whether the FPS is worth the money.
                 </div>
                 <div class="miniList">
-                  <span class="tag"><b>W</b> temps</span>
-                  <span class="tag"><b>dB</b> noise</span>
+                  <span class="tag"><b>Temps</b></span>
+                  <span class="tag"><b>Noise</b></span>
                   <span class="tag"><b>$/FPS</b></span>
                 </div>
               </div>
 
               <div class="card">
-                <div class="cardTitle">Linux gaming <small>// proton & drivers</small></div>
+                <div class="cardTitle">Linux: does it actually work? <small>// honest answer</small></div>
                 <div class="cardDesc">
-                  Proton, drivers, issues, fixes — documented so you can replicate the setup.
+                  What runs fine, what needs tweaks, and what’s simply not worth the pain (yet).
                 </div>
                 <div class="miniList">
                   <span class="tag"><b>Proton</b></span>
-                  <span class="tag"><b>Driver</b></span>
-                  <span class="tag"><b>Fix</b></span>
+                  <span class="tag"><b>Drivers</b></span>
+                  <span class="tag"><b>Fixes</b></span>
                 </div>
               </div>
 
               <div class="card">
-                <div class="cardTitle">Peripherals <small>// input truth</small></div>
+                <div class="cardTitle">Input & placebo check <small>// what really helps</small></div>
                 <div class="cardDesc">
-                  Mouse, keyboard, monitor settings — what improves performance vs placebo.
+                  Mouse, keyboard, monitor settings — what gives real advantage and what is just gamer mythology.
                 </div>
                 <div class="miniList">
-                  <span class="tag"><b>Hz</b> refresh</span>
-                  <span class="tag"><b>ms</b> latency</span>
-                  <span class="tag"><b>DPI</b> setup</span>
+                  <span class="tag"><b>Hz</b></span>
+                  <span class="tag"><b>Latency</b></span>
+                  <span class="tag"><b>DPI</b></span>
                 </div>
               </div>
             </div>
@@ -835,8 +826,7 @@
 
             <div class="badgeWrap">
               <div class="badge">
-                <img src="/gbrflx/gbrflx-logo.png" alt="GBRFLX logo">
-
+                <img src="./gbrflx-logo.png" alt="GBRFLX logo">
               </div>
             </div>
 
