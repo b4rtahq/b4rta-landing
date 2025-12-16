@@ -64,12 +64,38 @@
     }
     .brand{display:flex;align-items:center;gap:14px}
     .logo{
-      width:44px;height:44px;border-radius:999px;
-      background:radial-gradient(circle at 30% 20%, #fff 0, #25e3ff 22%, #021d28 60%, #000 100%);
-      box-shadow:0 0 18px rgba(37,227,255,.9), 0 0 44px rgba(37,227,255,.35);
-      overflow:hidden;display:flex;align-items:center;justify-content:center;
+      position:relative;
+  width:46px;height:46px;border-radius:14px;
+  overflow:hidden;               /* THIS clips the glow */
+  flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  background: rgba(2,16,18,0.35);
+  border:1px solid rgba(255,255,255,0.06);
     }
-    .logo img{width:130%;height:130%;object-fit:contain}
+
+    .logo::before{
+  content:"";
+  position:absolute;
+  inset:-6px;                    /* control glow size */
+  background: radial-gradient(circle at 30% 25%,
+    rgba(99,255,180,0.55) 0%,
+    rgba(37,227,255,0.18) 35%,
+    transparent 62%);
+  filter: blur(10px);
+  opacity:0.85;
+  z-index:0;
+}
+  .logo img{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+
+  /* IMPORTANT: no drop-shadow here on mobile */
+  filter:none;
+}
 
     .brand-title{
       font-family:"Orbitron",system-ui,sans-serif;
@@ -419,6 +445,11 @@
       .pill{white-space:normal}
       .sectionHint{white-space:normal}
     }
+@media (max-width:520px){
+  .logo{ width:40px; height:40px; border-radius:12px; }
+  .logo::before{ inset:-4px; filter: blur(9px); opacity:0.80; }
+}
+    
   </style>
 </head>
 
