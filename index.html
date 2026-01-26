@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>B4RTA//</title>
+  <style>
+    :root{
+      --bg0:#050809;
+      --bg1:#071012;
+      --card:#0a1213cc;
+      --stroke:#1b2a2c;
+      --stroke2:#112022;
+      --text:#d9e7e6;
+      --muted:#9fb2b0;
+      --muted2:#7f9491;
+
+      --accent:#00e6ff;          /* B4RTA cyan */
+      --accent2:#22c7ff;
+      --glow: rgba(0,230,255,.22);
+      --glow2: rgba(0,230,255,.10);
+
+      --r12:12px;
+      --r16:16px;
+      --r20:20px;
+      --shadow: 0 22px 80px rgba(0,0,0,.55);
+      --shadow2: 0 14px 48px rgba(0,0,0,.45);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(0,230,255,.10), transparent 55%),
+        radial-gradient(1000px 700px at 80% 20%, rgba(0,230,255,.06), transparent 60%),
+        radial-gradient(900px 700px at 50% 70%, rgba(0,0,0,.60), transparent 70%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:.2px;
+    }
+
+    .wrap{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 22px 16px 36px;
+    }
+
+    /* ========= TOPBAR ========= */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 14px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.06);
+      background: linear-gradient(180deg, rgba(7,16,18,.55), rgba(5,8,9,.25));
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px; /* gap slightly tighter = more premium */
+      min-width: 0;
+    }
+    .brand .txt{min-width:0}
+    .brand .name{
+      font-weight: 720;
+      letter-spacing: .32em;
+      font-size: 13px;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+    .brand .tagline{
+      margin-top: 2px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.2;
+      /* FIX: no nowrap => mobile won't cut */
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+      max-width: 52ch;
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.22);
+      color: rgba(217,231,230,.90);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px; /* smaller = premium */
+      line-height:1;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25) inset;
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.14);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 18px 50px rgba(0,0,0,.35) inset;
+    }
+    .pill.accent{
+      border-color: rgba(0,230,255,.22);
+      background: linear-gradient(180deg, rgba(0,230,255,.12), rgba(0,0,0,.18));
+      box-shadow: 0 0 0 1px rgba(0,230,255,.10), 0 18px 50px rgba(0,0,0,.35) inset;
+    }
+
+    /* ========= THE “DARK ORB” LOGO (shared system) ========= */
+    .orb{
+      width:44px;height:44px;
+      border-radius: 16px;
+      position:relative;
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      box-shadow:
+        0 18px 55px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,255,255,.04) inset;
+      background:
+        radial-gradient(16px 16px at 28% 22%, rgba(255,255,255,.10), transparent 62%),
+        radial-gradient(30px 30px at 75% 70%, rgba(0,0,0,.62), transparent 70%),
+        linear-gradient(180deg, rgba(10,18,19,.92), rgba(6,10,10,.78));
+    }
+    /* outer ring */
+    .orb:before{
+      content:"";
+      position:absolute;
+      inset:-12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: radial-gradient(90px 70px at 50% 50%, rgba(0,0,0,.0), rgba(0,0,0,.0));
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.35) inset,
+        0 0 70px var(--glow2);
+      pointer-events:none;
+    }
+    /* inner halo */
+    .orb:after{
+      content:"";
+      position:absolute;
+      inset:-6px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.05);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.25) inset,
+        0 0 28px var(--glow);
+      pointer-events:none;
+      opacity:.65;
+    }
+
+    .orb svg{
+      width:20px;height:20px;
+      filter: drop-shadow(0 0 10px rgba(0,0,0,.55)) drop-shadow(0 0 10px var(--glow));
+    }
+    .orb .tri{
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2.2;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+
+    /* ========= GRID ========= */
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1.35fr .95fr;
+      gap: 14px;
+      align-items:start;
+    }
+
+    .card{
+      border-radius: var(--r20);
+      background: linear-gradient(180deg, rgba(10,18,19,.70), rgba(5,8,9,.40));
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .pad{ padding: 22px; } /* +presence */
+    .kicker{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: rgba(217,231,230,.72);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    h1{
+      margin: 10px 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      font-weight: 760; /* +2 weight feel */
+    }
+    .sub{
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 66ch;
+    }
+    .tags{
+      margin-top: 14px;
+      display:flex;
+      flex-wrap: wrap;
+      gap:10px;
+    }
+    .tag{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      color: rgba(217,231,230,.86);
+      padding: 9px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.20);
+    }
+    .tag.accent{
+      border-color: rgba(0,230,255,.18);
+      background: linear-gradient(180deg, rgba(0,230,255,.10), rgba(0,0,0,.18));
+      box-shadow: 0 0 0 1px rgba(0,230,255,.08);
+    }
+
+    .stack{
+      display:grid;
+      gap: 14px;
+    }
+
+    .titleRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 10px;
+    }
+    .h2{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(217,231,230,.70);
+    }
+
+    ul{
+      margin: 0;
+      padding: 0 0 0 16px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    li{margin: 6px 0}
+
+    .callout{
+      margin-top: 12px;
+      border-radius: var(--r16);
+      border:1px solid rgba(0,230,255,.14);
+      background: linear-gradient(180deg, rgba(0,230,255,.08), rgba(0,0,0,.14));
+      padding: 12px 14px;
+      color: rgba(217,231,230,.86);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .callout b{color: var(--accent)}
+
+    /* ========= LIVE NOTES ========= */
+    .note{
+      border-radius: var(--r16);
+      border:1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.18);
+      padding: 14px;
+    }
+    .note + .note{ margin-top: 10px; }
+    .noteHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color: rgba(217,231,230,.72);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+    }
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .chip{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.07);
+      background: rgba(0,0,0,.18);
+      font-size: 11px;
+      color: rgba(217,231,230,.78);
+    }
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+      margin: 10px 0 10px;
+      opacity: .8;
+    }
+    .noteBody{
+      color: rgba(217,231,230,.82);
+      font-size: 14px;
+      line-height: 1.65; /* better feed feel */
+    }
+
+    .rule{
+      margin-top: 10px;
+      border-radius: var(--r16);
+      border:1px solid rgba(0,230,255,.14);
+      background: linear-gradient(180deg, rgba(0,230,255,.08), rgba(0,0,0,.14));
+      padding: 12px 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      color: rgba(217,231,230,.86);
+      line-height: 1.5;
+    }
+    .rule b{color: var(--accent)}
+
+    /* “Next log” input-like line */
+    .nextlog{
+      margin-top: 10px;
+      border-radius: var(--r16);
+      border:1px solid rgba(255,255,255,.07);
+      background: rgba(0,0,0,.14);
+      padding: 12px 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      color: rgba(217,231,230,.72);
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .nextlog .label{ color: var(--accent); font-weight:700; }
+    .nextlog .line{
+      flex:1;
+      opacity:.55;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:clip;
+    }
+
+    footer{
+      margin-top: 18px;
+      display:flex;
+      justify-content:space-between;
+      color: rgba(217,231,230,.42);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+
+    /* ========= RESPONSIVE ========= */
+    @media (max-width: 920px){
+      .grid{ grid-template-columns: 1fr; }
+      .wrap{ padding: 18px 14px 32px; }
+      .pad{ padding: 20px; }
+      .brand .tagline{ max-width: 34ch; }
+    }
+    @media (max-width: 560px){
+      .topbar{ border-radius: 22px; padding: 12px; }
+      .actions{ gap:8px; }
+      .pill{ padding: 8px 10px; }
+      .brand .tagline{ max-width: 28ch; }
+      .orb{ width:42px;height:42px; border-radius: 15px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="orb" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path class="tri" d="M12 5.2 L20 18.8 H4 Z"/>
+          </svg>
+        </div>
+        <div class="txt">
+          <div class="name">B4RTA//</div>
+          <div class="tagline">Systems · Decisions · Long-term thinking · Constraints over narratives</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="pill" href="b4rtafit.html">B4RTAFIT</a>
+        <a class="pill accent" href="https://x.com/_B4RTA" target="_blank" rel="noreferrer">Follow on X</a>
+        <a class="pill" href="mailto:hi@b4rta.co">hi@b4rta.co</a>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card pad">
+        <div class="kicker">B4RTA// · Strategy layer</div>
+        <h1>Calm systems outlast loud opinions.</h1>
+        <div class="sub">
+          Systems fail when incentives and constraints are misaligned. This is a public log of how technical,
+          operational, and human systems behave under pressure.
+        </div>
+        <div class="tags">
+          <span class="tag accent">Follow the work on X</span>
+          <span class="tag">No hype</span>
+          <span class="tag">No politics</span>
+          <span class="tag">No price calls</span>
+        </div>
+      </section>
+
+      <aside class="stack">
+        <div class="card pad">
+          <div class="titleRow">
+            <div class="h2">Operating stance</div>
+          </div>
+          <div class="sub" style="margin-top:-2px">
+            Signal &gt; noise. Structure &gt; vibe. Time horizon &gt; ego. No selling. No funnels.
+          </div>
+          <div class="callout"><b>Format:</b> statement → clarification → consequence.</div>
+          <div class="callout"><b>Separation:</b> physical discipline is handled separately under <span style="color:var(--accent2)">B4RTAFIT</span>.</div>
+        </div>
+      </aside>
+
+      <section class="card pad">
+        <div class="titleRow">
+          <div class="h2">Focus</div>
+        </div>
+        <ul>
+          <li>System design and trade-offs</li>
+          <li>Infrastructure &amp; operational thinking</li>
+          <li>Incentives and second-order effects</li>
+          <li>Decision-making under constraints</li>
+          <li>Long-term stability over short-term optimization</li>
+        </ul>
+        <div class="callout"><b>Positioning:</b> not a media brand, not a pitch, not a blog — just structured reasoning in public.</div>
+      </section>
+
+      <section class="card pad">
+        <div class="titleRow">
+          <div class="h2">Live notes</div>
+        </div>
+
+        <div class="note">
+          <div class="noteHead">
+            <div>2026-01-22</div>
+            <div class="chips">
+              <span class="chip">SYSTEMS</span>
+              <span class="chip">CONSTRAINTS</span>
+              <span class="chip">INCENTIVES</span>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="noteBody">
+            Most failures aren’t caused by “bad people”. They’re caused by misaligned incentives under real constraints.
+          </div>
+        </div>
+
+        <div class="note">
+          <div class="noteHead">
+            <div>2026-01-20</div>
+            <div class="chips">
+              <span class="chip">DECISION</span>
+              <span class="chip">RISK</span>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="noteBody">
+            If the downside is existential, you don’t optimize. You simplify, de-risk, and survive volatility.
+          </div>
+        </div>
+
+        <div class="note">
+          <div class="noteHead">
+            <div>2026-01-18</div>
+            <div class="chips">
+              <span class="chip">OPS</span>
+              <span class="chip">EXECUTION</span>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="noteBody">
+            If it can’t be executed under constraints, it’s not a plan — it’s imagination.
+          </div>
+        </div>
+
+        <div class="rule"><b>Rule:</b> if there’s nothing to log, don’t post.</div>
+
+        <div class="nextlog">
+          <span class="label">Next log:</span>
+          <span class="line">______________________________</span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© 2026 B4RTA//</div>
+      <div>Built for a long horizon.</div>
+    </footer>
+  </div>
+</body>
+</html>
