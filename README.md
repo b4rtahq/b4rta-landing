@@ -6,10 +6,6 @@
 
 Systems. Constraints. Long horizons.
 
-# B4RTA //
-
-Systems. Constraints. Long horizons.
-
 Independent log exploring:
 
 - systems thinking
