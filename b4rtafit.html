@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>B4RTAFIT</title>
+  <style>
+    :root{
+      --bg0:#050809;
+      --bg1:#071012;
+      --bg2:#08140b;
+      --card:#0a1213cc;
+      --stroke:#1b2a2c;
+      --text:#d9e7e6;
+      --muted:#9fb2b0;
+
+      --accent:#7CFF00;
+      --accent2:#5CFF8A;
+      --glow: rgba(124,255,0,.22);
+      --glow2: rgba(124,255,0,.10);
+      --grid: rgba(124,255,0,.045);
+
+      --r16:16px;
+      --r20:20px;
+      --shadow: 0 22px 80px rgba(0,0,0,.55);
+      --shadow2: 0 14px 48px rgba(0,0,0,.45);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(124,255,0,.10), transparent 55%),
+        radial-gradient(1000px 700px at 80% 20%, rgba(124,255,0,.06), transparent 60%),
+        radial-gradient(900px 700px at 50% 70%, rgba(0,0,0,.60), transparent 70%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:.2px;
+      position:relative;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 88px 88px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 95%);
+      -webkit-mask-image: radial-gradient(circle at center, black 35%, transparent 95%);
+      opacity:.65;
+      z-index:0;
+      animation:gridFloat 24s linear infinite;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      inset:-20%;
+      pointer-events:none;
+      z-index:0;
+      background:
+        radial-gradient(420px 320px at 20% 25%, rgba(124,255,0,.06), transparent 70%),
+        radial-gradient(500px 360px at 80% 15%, rgba(124,255,0,.04), transparent 70%);
+      filter: blur(12px);
+      animation: ambientShift 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes gridFloat{
+      0%{transform:translate3d(0,0,0)}
+      100%{transform:translate3d(0,24px,0)}
+    }
+
+    @keyframes ambientShift{
+      0%{transform:translate3d(-1%,0,0) scale(1)}
+      100%{transform:translate3d(1%,1%,0) scale(1.03)}
+    }
+
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 22px 16px 36px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 14px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.06);
+      background: linear-gradient(180deg, rgba(7,16,18,.60), rgba(5,8,9,.28));
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 0;
+    }
+
+    .brand .txt{min-width:0}
+
+    .brand .name{
+      font-weight: 740;
+      letter-spacing: .28em;
+      font-size: 13px;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+
+    .brand .tagline{
+      margin-top: 2px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.2;
+      white-space: normal;
+      max-width: 52ch;
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.22);
+      color: rgba(217,231,230,.90);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      line-height:1;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25) inset;
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+    }
+
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.14);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 18px 50px rgba(0,0,0,.35) inset;
+    }
+
+    .pill.accent{
+      border-color: rgba(124,255,0,.22);
+      background: linear-gradient(180deg, rgba(124,255,0,.12), rgba(0,0,0,.18));
+      box-shadow: 0 0 0 1px rgba(124,255,0,.10), 0 18px 50px rgba(0,0,0,.35) inset;
+    }
+
+    .orb{
+      width:44px;height:44px;
+      border-radius: 16px;
+      position:relative;
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      box-shadow:
+        0 18px 55px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,255,255,.04) inset;
+      background:
+        radial-gradient(16px 16px at 28% 22%, rgba(255,255,255,.10), transparent 62%),
+        radial-gradient(30px 30px at 75% 70%, rgba(0,0,0,.62), transparent 70%),
+        linear-gradient(180deg, rgba(10,18,19,.92), rgba(6,10,10,.78));
+      animation: orbPulse 6s ease-in-out infinite;
+    }
+
+    .orb:before{
+      content:"";
+      position:absolute;
+      inset:-12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.07);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.35) inset,
+        0 0 70px var(--glow2);
+      pointer-events:none;
+    }
+
+    .orb:after{
+      content:"";
+      position:absolute;
+      inset:-6px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.05);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.25) inset,
+        0 0 28px var(--glow);
+      pointer-events:none;
+      opacity:.65;
+    }
+
+    .orb svg{
+      width:20px;height:20px;
+      filter: drop-shadow(0 0 10px rgba(0,0,0,.55)) drop-shadow(0 0 10px var(--glow));
+    }
+
+    .orb .tri{
+      fill:none;
+      stroke: var(--accent);
+      stroke-width: 2.2;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+
+    @keyframes orbPulse{
+      0%,100%{ transform:translateY(0); filter:brightness(1); }
+      50%{ transform:translateY(-1px); filter:brightness(1.05); }
+    }
+
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1.35fr .95fr;
+      gap: 14px;
+      align-items:start;
+    }
+
+    .card{
+      border-radius: var(--r20);
+      background: linear-gradient(180deg, rgba(10,18,19,.72), rgba(5,8,9,.42));
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), transparent 24%);
+      opacity:.8;
+    }
+
+    .pad{ padding: 22px; }
+
+    .kicker{
+      position:relative;
+      z-index:1;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: rgba(217,231,230,.72);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    h1{
+      position:relative;
+      z-index:1;
+      margin: 10px 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      font-weight: 760;
+      animation: heroPulse 7s ease-in-out infinite;
+      text-wrap: balance;
+    }
+
+    @keyframes heroPulse{
+      0%,100%{
+        text-shadow: 0 0 0 rgba(124,255,0,0);
+        opacity:.97;
+      }
+      50%{
+        text-shadow: 0 0 24px rgba(124,255,0,.08);
+        opacity:1;
+      }
+    }
+
+    .sub{
+      position:relative;
+      z-index:1;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 66ch;
+    }
+
+    .tags{
+      position:relative;
+      z-index:1;
+      margin-top: 14px;
+      display:flex;
+      flex-wrap: wrap;
+      gap:10px;
+    }
+
+    .tag{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      color: rgba(217,231,230,.86);
+      padding: 9px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.20);
+    }
+
+    .stack{ display:grid; gap: 14px; }
+
+    .h2{
+      position:relative;
+      z-index:1;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(217,231,230,.70);
+      margin:0 0 10px;
+    }
+
+    .callout{
+      position:relative;
+      z-index:1;
+      margin-top: 12px;
+      border-radius: var(--r16);
+      border:1px solid rgba(124,255,0,.14);
+      background: linear-gradient(180deg, rgba(124,255,0,.08), rgba(0,0,0,.14));
+      padding: 12px 14px;
+      color: rgba(217,231,230,.86);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .callout b{color: var(--accent)}
+
+    .week{
+      position:relative;
+      z-index:1;
+      border-radius: var(--r16);
+      border:1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.18);
+      padding: 14px;
+      transition: border-color .14s ease, transform .14s ease;
+    }
+
+    .week:hover{
+      border-color: rgba(124,255,0,.12);
+      transform: translateY(-1px);
+    }
+
+    .week + .week{ margin-top: 10px; }
+
+    .weekHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color: rgba(217,231,230,.72);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+    }
+
+    .ok{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(124,255,0,.16);
+      background: rgba(124,255,0,.08);
+      color: rgba(217,231,230,.85);
+      font-size: 11px;
+    }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+      margin: 10px 0 10px;
+      opacity:.8;
+    }
+
+    .metrics{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:10px;
+      margin-top: 10px;
+    }
+
+    .m{
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.14);
+      padding: 10px 10px;
+    }
+
+    .m .l{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 11px;
+      color: rgba(217,231,230,.62);
+      letter-spacing:.14em;
+      text-transform: uppercase;
+    }
+
+    .m .v{
+      margin-top: 6px;
+      font-size: 16px;
+      color: rgba(217,231,230,.88);
+      font-weight: 700;
+    }
+
+    .notes{
+      margin-top: 10px;
+      color: rgba(217,231,230,.78);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    footer{
+      margin-top: 18px;
+      display:flex;
+      justify-content:space-between;
+      color: rgba(217,231,230,.42);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .08em;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 920px){
+      .grid{ grid-template-columns: 1fr; }
+      .wrap{ padding: 18px 14px 32px; }
+      .pad{ padding: 20px; }
+      .brand .tagline{ max-width: 34ch; }
+    }
+
+    @media (max-width: 560px){
+      body::before{ background-size: 64px 64px; }
+      .topbar{ border-radius: 22px; padding: 12px; }
+      .actions{ gap:8px; }
+      .pill{ padding: 8px 10px; }
+      .brand .tagline{ max-width: 28ch; }
+      .orb{ width:42px;height:42px; border-radius: 15px; }
+      .metrics{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="orb" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path class="tri" d="M12 5.2 L20 18.8 H4 Z"/>
+          </svg>
+        </div>
+        <div class="txt">
+          <div class="name">B4RTAFIT</div>
+          <div class="tagline">Athletic discipline · Performance · Endurance · Recovery</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="pill" href="index.html">B4RTA</a>
+        <a class="pill accent" href="https://x.com/_B4RTAFIT" target="_blank" rel="noreferrer">Follow on X</a>
+        <a class="pill" href="https://instagram.com/b4rtafit/" target="_blank" rel="noreferrer">Instagram</a>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card pad">
+        <div class="kicker">B4RTAFIT · Athlete mode</div>
+        <h1>The goal is not appearance. The goal is capacity.</h1>
+        <div class="sub">
+          B4RTAFIT is the physical discipline layer — built for endurance, load tolerance, and longevity.
+          Training and recovery are treated as systems. <span style="color:var(--accent);font-weight:800">Durability first.</span>
+        </div>
+        <div class="tags">
+          <span class="tag">CONSISTENCY</span>
+          <span class="tag">PROGRESSION</span>
+          <span class="tag">RECOVERY</span>
+        </div>
+      </section>
+
+      <aside class="stack">
+        <div class="card pad">
+          <div class="h2">Method</div>
+          <div class="sub">
+            Minimal talk. Max reps. Track signal: sleep, load, recovery, consistency. Built to hold up over years — not weeks.
+          </div>
+          <div class="callout"><b>Rule:</b> Train like an adult. Recover like it matters. Repeat.</div>
+          <div class="callout"><b>Relationship:</b> B4RTA handles systems thinking. B4RTAFIT handles the body that can carry it.</div>
+        </div>
+      </aside>
+
+      <section class="card pad">
+        <div class="h2">Weekly capacity log</div>
+
+        <div class="week">
+          <div class="weekHead">
+            <div>WEEK OF 2026-01-25</div>
+            <span class="ok">OK</span>
+          </div>
+          <div class="divider"></div>
+          <div class="metrics">
+            <div class="m"><div class="l">Sessions</div><div class="v">5</div></div>
+            <div class="m"><div class="l">Strength</div><div class="v">2</div></div>
+            <div class="m"><div class="l">Endurance</div><div class="v">3</div></div>
+            <div class="m"><div class="l">Recovery</div><div class="v">1</div></div>
+            <div class="m"><div class="l">Sleep avg</div><div class="v">6.6</div></div>
+            <div class="m"><div class="l">RPE avg</div><div class="v">7</div></div>
+          </div>
+          <div class="notes" style="margin-top:10px">
+            Engine up. Sleep slightly down. Keep ego low; protect joints.
+          </div>
+        </div>
+
+        <div class="week">
+          <div class="weekHead">
+            <div>WEEK OF 2026-01-18</div>
+            <span class="ok">OK</span>
+          </div>
+          <div class="divider"></div>
+          <div class="metrics">
+            <div class="m"><div class="l">Sessions</div><div class="v">4</div></div>
+            <div class="m"><div class="l">Strength</div><div class="v">2</div></div>
+            <div class="m"><div class="l">Endurance</div><div class="v">2</div></div>
+            <div class="m"><div class="l">Recovery</div><div class="v">1</div></div>
+            <div class="m"><div class="l">Sleep avg</div><div class="v">7.2</div></div>
+            <div class="m"><div class="l">RPE avg</div><div class="v">6</div></div>
+          </div>
+          <div class="notes" style="margin-top:10px">
+            Baseline week. No injuries. Volume stable. Recovery kept simple.
+          </div>
+        </div>
+
+        <div class="callout"><b>Style:</b> short facts. No motivation. No coaching. Just signal.</div>
+      </section>
+
+      <section class="card pad">
+        <div class="h2">Principles</div>
+        <div class="sub" style="line-height:1.75">
+          • Consistency beats intensity<br/>
+          • Progression is measured, not guessed<br/>
+          • Recovery is training — not optional<br/>
+          • Capacity first, aesthetics second<br/>
+          • Long horizon, low drama
+        </div>
+        <div class="callout"><b>Priority:</b> durability. The body is infrastructure.</div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© 2026 B4RTAFIT</div>
+      <div>Discipline. Capacity. Recovery.</div>
+      <div>Part of the B4RTA framework.</div>
+    </footer>
+  </div>
+</body>
+</html>
