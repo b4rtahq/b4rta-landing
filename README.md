@@ -1,6 +1,10 @@
 <p align="center">
-<img src="b4rta.png" width="220">
+<img src="b4rta.png" width="140">
 </p>
+
+# B4RTA //
+
+Systems. Constraints. Long horizons.
 
 # B4RTA //
 
