@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import { principles } from '../data';
+---
+
+<Base title="Principles — B4RTA //">
+  <section class="page principles-page">
+    <div class="wrap">
+      <p class="eyebrow">PRINCIPLES</p>
+
+      <h1 class="page-title">
+        Principles.<br />
+        Not narratives.
+      </h1>
+
+      <div class="principles-list principles-page-list">
+        {principles.map(([number, text]) => (
+          <article class="principle">
+            <div class="number">{number}</div>
+            <h3>{text}</h3>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

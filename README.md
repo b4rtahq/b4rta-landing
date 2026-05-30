@@ -1,17 +1,34 @@
-<p align="center">
-<img src="b4rta.png" width="140">
-</p>
+# B4RTA // Astro Site
 
-# B4RTA //
+Dark minimal Apple/editorial-style B4RTA website.
 
-Systems. Constraints. Long horizons.
+## Run locally
 
-Independent log exploring:
+```bash
+npm install
+npm run dev
+```
 
-- systems thinking
-- infrastructure
-- incentives
-- decision-making under constraints
+## Build
 
-Website → https://b4rta.co  
-X → https://x.com/_B4RTA
+```bash
+npm run build
+```
+
+## Pages
+
+- `/` homepage
+- `/notes`
+- `/principles`
+- `/manifesto`
+- `/about`
+
+## Design tokens
+
+- Background: `#05070A`
+- Elevated surface: `#090D12`
+- Text: `#F5F7FA`
+- Secondary text: `#8A93A1`
+- Accent: subtle ice blue `#9FC8FF`
+
+The architecture image is an included SVG placeholder in `public/images/brutalist-corridor.svg` so the site works immediately without external assets.

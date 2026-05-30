@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05070A"/>
+      <stop offset="0.55" stop-color="#090D12"/>
+      <stop offset="1" stop-color="#030406"/>
+    </linearGradient>
+    <radialGradient id="light" cx="52%" cy="48%" r="36%">
+      <stop offset="0" stop-color="#F5F7FA" stop-opacity=".22"/>
+      <stop offset=".22" stop-color="#8EBBFF" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .09"/></feComponentTransfer>
+    </filter>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F5F7FA" stop-opacity=".02"/>
+      <stop offset=".48" stop-color="#F5F7FA" stop-opacity=".28"/>
+      <stop offset=".62" stop-color="#F5F7FA" stop-opacity=".07"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" filter="url(#grain)" opacity=".55"/>
+  <path d="M420 0 L640 0 L520 900 L220 900 Z" fill="#020304" opacity=".84"/>
+  <path d="M650 0 L1200 0 L1200 900 L540 900 Z" fill="#11161B" opacity=".62"/>
+  <path d="M610 0 L1200 0 L1200 900 L755 900 Z" fill="#05070A" opacity=".45"/>
+  <path d="M550 515 L1200 515 L1200 710 L515 680 Z" fill="#0A0E12" opacity=".8"/>
+  <path d="M540 420 L1200 420 L1200 515 L565 515 Z" fill="url(#edge)" opacity=".9"/>
+  <rect x="650" y="0" width="1" height="900" fill="#F5F7FA" opacity=".05"/>
+  <rect x="805" y="0" width="1" height="900" fill="#F5F7FA" opacity=".04"/>
+  <rect x="965" y="0" width="1" height="900" fill="#F5F7FA" opacity=".035"/>
+  <g opacity=".16" fill="#F5F7FA">
+    <circle cx="800" cy="230" r="3"/><circle cx="948" cy="230" r="3"/><circle cx="1096" cy="230" r="3"/>
+    <circle cx="800" cy="390" r="3"/><circle cx="948" cy="390" r="3"/><circle cx="1096" cy="390" r="3"/>
+    <circle cx="800" cy="550" r="3"/><circle cx="948" cy="550" r="3"/><circle cx="1096" cy="550" r="3"/>
+  </g>
+  <rect width="1200" height="900" fill="url(#light)"/>
+  <rect width="1200" height="900" fill="#000" opacity=".36"/>
+</svg>

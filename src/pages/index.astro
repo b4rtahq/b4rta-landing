@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import { principles, notes } from '../data';
+---
+<Base>
+<section class="hero wrap">
+    <div class="wrap hero-copy">
+      <p class="eyebrow">Systems thinking</p>
+      <h1>Systems.<br />Constraints.<br />Long horizons.</h1>
+      <p class="lead">Calm systems outlast loud opinions.</p>
+      <a class="text-link" href="/notes">Read notes <span>→</span></a>
+    </div>
+    <div class="hero-visual" aria-hidden="true"></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="section-label">Principles</p>
+      <div class="principles-list">
+        {principles.map(([number, text]) => (
+          <article class="principle">
+            <div class="number">{number}</div>
+            <h3>{text}</h3>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="notes-head">
+        <p class="section-label">Field notes</p>
+        <a class="text-link" href="/notes">View archive <span>→</span></a>
+      </div>
+      <div class="notes">
+        {notes.map((note) => (
+          <a class="note-row" href="/notes">
+            <span class="date">{note.date}</span>
+            <p>{note.text}</p>
+            <span class="tags">{note.tags}</span>
+            <span class="arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

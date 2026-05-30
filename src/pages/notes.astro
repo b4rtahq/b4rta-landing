@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { notes } from '../data';
+---
+
+<Base title="Notes — B4RTA //">
+<div class="notes notes-page-list"></div>
+    <div class="wrap">
+      <p class="eyebrow">FIELD NOTES</p>
+
+      <h1 class="page-title">
+        Public reasoning.<br />
+        No performance.
+      </h1>
+
+      <p class="page-lead">
+        Short notes on systems, incentives,
+        execution and long-horizon decisions.
+      </p>
+
+      <div class="notes notes-page-list">
+        {notes.map((note) => (
+          <article class="note-row">
+            <span class="date">{note.date}</span>
+            <p>{note.text}</p>
+            <span class="tags">{note.tags}</span>
+            <span class="arrow">→</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
