@@ -1,34 +1,58 @@
-# B4RTA // Astro Site
+# B4RTA //
 
-Dark minimal Apple/editorial-style B4RTA website.
+Systems. Constraints. Long horizons.
 
-## Run locally
+B4RTA is a public archive of systems thinking, incentives, execution and long-horizon reasoning.
 
-```bash
-npm install
-npm run dev
-```
+Built for signal.
+Not attention.
 
-## Build
+---
 
-```bash
-npm run build
-```
+## Structure
 
-## Pages
+* `/` — systems thinking
+* `/notes` — field notes
+* `/principles` — operational principles
+* `/manifesto` — positioning
+* `/about` — ecosystem context
 
-- `/` homepage
-- `/notes`
-- `/principles`
-- `/manifesto`
-- `/about`
+---
 
-## Design tokens
+## Stack
 
-- Background: `#05070A`
-- Elevated surface: `#090D12`
-- Text: `#F5F7FA`
-- Secondary text: `#8A93A1`
-- Accent: subtle ice blue `#9FC8FF`
+* Astro
+* Minimal CSS
+* Static deployment
+* Dark editorial interface
 
-The architecture image is an included SVG placeholder in `public/images/brutalist-corridor.svg` so the site works immediately without external assets.
+---
+
+## Philosophy
+
+B4RTA does not optimize for:
+
+* engagement
+* outrage
+* performance
+* trend cycles
+
+It studies:
+
+* incentives
+* constraints
+* durability
+* execution
+* systems behavior under pressure
+
+---
+
+## Ecosystem
+
+* AXYRO — systems/product layer
+* NEXOR SIGNAL — media/signal layer
+* B4RTA — reasoning layer
+
+---
+
+© B4RTA
