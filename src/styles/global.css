@@ -584,44 +584,105 @@ max-width:780px;
 
 /* MOBILE */
 
+/* MOBILE */
+
 @media (max-width: 900px) {
+  .wrap {
+    width: min(100% - 40px, var(--max));
+  }
+
+  .site-header {
+    height: auto;
+    padding: 24px 0;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .brand {
+    font-size: 18px;
+    letter-spacing: .28em;
+  }
+
+  .nav-links {
+    width: 100%;
+    gap: 22px;
+    overflow-x: auto;
+    font-size: 11px;
+    padding-bottom: 4px;
+  }
+
   .hero {
     min-height: auto;
   }
 
   .hero-inner {
     min-height: auto;
-    grid-template-columns: 1fr;
-    gap: 48px;
+    display: block;
     padding-top: 72px;
-    padding-bottom: 72px;
+    padding-bottom: 88px;
   }
 
-  .hero h1,
-  .manifesto h1 {
-    font-size: 64px;
-      text-wrap: balance;
+  .hero-copy {
+    max-width: 100%;
+  }
+
+  .hero h1 {
+    font-size: clamp(54px, 17vw, 72px);
+    line-height: .9;
+    letter-spacing: -0.075em;
+    max-width: 7ch;
+  }
+
+  .hero .lead {
+    font-size: 16px;
+    margin-bottom: 44px;
   }
 
   .hero-visual {
-    position: relative;
-    top: auto;
-    right: auto;
-    bottom: auto;
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: 420px;
+    height: 100%;
+    opacity: .42;
   }
 
   .hero-visual img {
     width: 135%;
-    transform: translateX(-8%);
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% center;
+    transform: none;
   }
 
+  .hero-visual::after {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(5,7,10,.96) 0%,
+        rgba(5,7,10,.86) 46%,
+        rgba(5,7,10,.62) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(5,7,10,.78) 0%,
+        rgba(5,7,10,.12) 42%,
+        rgba(5,7,10,.9) 100%
+      );
+  }
+
+  .manifesto h1 {
+    font-size: 64px;
+    text-wrap: balance;
+  }
 
   .principles-list {
     grid-template-columns: 1fr;
-    gap:0;
-    margin-top:72px;
+    gap: 0;
+    margin-top: 72px;
   }
 
   .principle {
@@ -632,13 +693,13 @@ max-width:780px;
   }
 
   .principle:first-child {
-   padding-left: 0;
-  border-left: 0;
+    padding-left: 0;
+    border-left: 0;
   }
 
-  .principle:last-child{
-  border-right:none;
-}
+  .principle:last-child {
+    border-right: none;
+  }
 
   .note-row {
     grid-template-columns: 1fr;
