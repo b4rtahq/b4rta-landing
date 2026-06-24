@@ -2,25 +2,23 @@
 import Base from '../layouts/Base.astro';
 import { principles } from '../data';
 ---
-
-<Base title="Principles — B4RTA //">
-  <section class="page principles-page">
-    <div class="wrap">
-      <p class="eyebrow">PRINCIPLES</p>
-
-      <h1 class="page-title">
-        Principles.<br />
-        Not narratives.
-      </h1>
-
-      <div class="principles-list principles-page-list">
-        {principles.map(([number, text]) => (
-          <article class="principle">
-            <div class="number">{number}</div>
-            <h3>{text}</h3>
-          </article>
-        ))}
-      </div>
+<Base title="Principles — B4RTA" description="Direct B4RTA principles for the house build: livable first, fix function, buy fewer tools, track the money and keep the system simple.">
+  <section class="page">
+    <div class="wrap page-intro narrow-intro">
+      <p class="eyebrow">Principles</p>
+      <h1 class="page-title">The rules of the build.</h1>
+      <p class="page-lead">Simple rules for the moments when the house, the money, the tools and the family pressure all start pulling in different directions.</p>
+    </div>
+    <div class="wrap principle-list full-list">
+      {principles.map(([number, title, copy]) => (
+        <article class="principle-row">
+          <span class="principle-number">{number}</span>
+          <div>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 </Base>

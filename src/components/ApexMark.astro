@@ -1,0 +1,17 @@
+---
+const { class: className = '', showMountain = true } = Astro.props;
+---
+<svg class={`apex-mark ${className}`} viewBox="0 0 512 512" role="img" aria-label="B4RTA Apex Mark">
+  <defs>
+    <linearGradient id="apexGold" x1="96" x2="416" y1="48" y2="464" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE6A3" />
+      <stop offset="0.34" stop-color="#D1A04B" />
+      <stop offset="0.68" stop-color="#8D6429" />
+      <stop offset="1" stop-color="#F3C264" />
+    </linearGradient>
+  </defs>
+  <path class="apex-shell" d="M256 38 61 464l76-48 119-268 119 268 76 48L256 38Z" />
+  {showMountain && (
+    <path class="apex-mountain" d="M112 395 194 315l32 29 30-86 44 103 23-39 77 73-79-43-22 33-43-58-34 44-28-25-82 49Z" />
+  )}
+</svg>

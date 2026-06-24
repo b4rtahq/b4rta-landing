@@ -1,58 +1,36 @@
-# B4RTA //
+# B4RTA — final publish-ready Astro site
 
-Systems. Constraints. Long horizons.
+A premium but direct public build log for an old house, tools, costs, money decisions and the system behind building a real family base.
 
-B4RTA is a public archive of systems thinking, incentives, execution and long-horizon reasoning.
+## Run locally
 
-Built for signal.
-Not attention.
+```bash
+npm install
+npm run dev
+```
 
----
+## Build
 
-## Structure
+```bash
+npm run build
+npm run preview
+```
 
-* `/` — systems thinking
-* `/notes` — field notes
-* `/principles` — operational principles
-* `/manifesto` — positioning
-* `/about` — ecosystem context
+## Routes
 
----
+- `/` — homepage
+- `/notes` — build log
+- `/principles` — build principles
+- `/manifesto` — manifesto
+- `/about` — about
+- `404.html` — not found page
 
-## Stack
+## Brand assets
 
-* Astro
-* Minimal CSS
-* Static deployment
-* Dark editorial interface
+- Header and page visuals use the transparent B4RTA mark / lockup files in `public/brand`.
+- Browser tabs use the black tile favicon set in `public/` because transparent favicons disappear on dark browser UI.
+- Social previews use `public/og-image.png`.
 
----
+## Before deploy
 
-## Philosophy
-
-B4RTA does not optimize for:
-
-* engagement
-* outrage
-* performance
-* trend cycles
-
-It studies:
-
-* incentives
-* constraints
-* durability
-* execution
-* systems behavior under pressure
-
----
-
-## Ecosystem
-
-* AXYRO — systems/product layer
-* NEXOR SIGNAL — media/signal layer
-* B4RTA — reasoning layer
-
----
-
-© B4RTA
+Update `site` inside `astro.config.mjs` to the final production domain if needed.

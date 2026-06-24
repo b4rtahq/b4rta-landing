@@ -1,7 +1,21 @@
 ---
 import '../styles/global.css';
-const { title = 'B4RTA // Systems. Constraints. Long horizons.', description = 'Public notes on systems, incentives, decision-making and long-horizon thinking.' } = Astro.props;
+
+const {
+  title = 'B4RTA — Old house. Real budget. No fake luxury.',
+  description = 'B4RTA is a public build log about turning an old house into a livable family base: tools, costs, fixes, mistakes and the decisions behind the build.'
+} = Astro.props;
+
 const path = Astro.url.pathname;
+const nav = [
+  ['Build Log', '/notes'],
+  ['Principles', '/principles'],
+  ['Manifesto', '/manifesto'],
+  ['About', '/about']
+];
+const site = Astro.site ?? new URL('https://b4rta.co');
+const canonical = new URL(path, site).toString();
+const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
 ---
 <!doctype html>
 <html lang="en">
@@ -9,33 +23,61 @@ const path = Astro.url.pathname;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#05070A" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:site_name" content="B4RTA" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <title>{title}</title>
   </head>
   <body>
+    <div class="page-noise" aria-hidden="true"></div>
     <header class="site-header">
-      <div class="wrap nav">
-        <a class="brand" href="/">B4RTA //</a>
+      <div class="wrap nav-shell">
+        <a class="brand" href="/" aria-label="B4RTA home">
+          <span class="brand-icon" aria-hidden="true"><img src="/brand/b4rta-mark.png" alt="" /></span>
+          <span class="brand-copy">
+            <span class="brand-name">B4RTA</span>
+            <span class="brand-tag">Old house. Real base.</span>
+          </span>
+        </a>
         <nav class="nav-links" aria-label="Primary navigation">
-          <a href="/notes" aria-current={path.startsWith('/notes') ? 'page' : undefined}>Notes</a>
-          <a href="/principles" aria-current={path.startsWith('/principles') ? 'page' : undefined}>Principles</a>
-          <a href="/manifesto" aria-current={path.startsWith('/manifesto') ? 'page' : undefined}>Manifesto</a>
-          <a href="/about" aria-current={path.startsWith('/about') ? 'page' : undefined}>About</a>
+          {nav.map(([label, href]) => (
+            <a href={href} aria-current={isActive(href) ? 'page' : undefined}>{label}</a>
+          ))}
         </nav>
       </div>
     </header>
-    <main>
-      <slot />
-    </main>
+    <main><slot /></main>
     <footer class="site-footer">
       <div class="wrap footer-grid">
-        <div>
-          <div class="footer-mark">B4RTA //</div>
-          <div class="footer-small">Systems. Constraints. Long horizons.</div>
-        </div>
+        <a class="footer-brand" href="/" aria-label="B4RTA home">
+          <span class="footer-icon"><img src="/brand/b4rta-mark.png" alt="" /></span>
+          <span>
+            <span class="footer-name">B4RTA</span>
+            <span class="footer-small">House. Tools. Money. No fake luxury.</span>
+          </span>
+        </a>
         <div class="footer-links">
-          <a href="https://x.com/_B4RTA" target="_blank" rel="noreferrer">X</a>
-          <span>© 2026 B4RTA</span>
+          <a href="/notes">Build Log</a>
+          <a href="/principles">Principles</a>
+          <a href="/manifesto">Manifesto</a>
+          <a href="/about">About</a>
+          <span>© 2026</span>
         </div>
       </div>
     </footer>

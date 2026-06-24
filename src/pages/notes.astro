@@ -2,32 +2,24 @@
 import Base from '../layouts/Base.astro';
 import { notes } from '../data';
 ---
-
-<Base title="Notes — B4RTA //">
-<div class="notes notes-page-list"></div>
-    <div class="wrap">
-      <p class="eyebrow">FIELD NOTES</p>
-
-      <h1 class="page-title">
-        Public reasoning.<br />
-        No performance.
-      </h1>
-
-      <p class="page-lead">
-        Short notes on systems, incentives,
-        execution and long-horizon decisions.
-      </p>
-
-      <div class="notes notes-page-list">
-        {notes.map((note) => (
-          <article class="note-row">
-            <span class="date">{note.date}</span>
-            <p>{note.text}</p>
-            <span class="tags">{note.tags}</span>
-            <span class="arrow">→</span>
-          </article>
-        ))}
-      </div>
+<Base title="Build Log — B4RTA" description="Short B4RTA notes from the house build: costs, tools, mistakes, fixes and practical decisions.">
+  <section class="page">
+    <div class="wrap page-intro">
+      <p class="eyebrow">Build log</p>
+      <h1 class="page-title">Short notes from the build.</h1>
+      <p class="page-lead">What got fixed, what got bought, what got delayed, what cost more than expected and what actually mattered.</p>
+    </div>
+    <div class="wrap notes-list large-list">
+      {notes.map((note) => (
+        <article class="note-item static-item">
+          <span class="note-date">{note.date}</span>
+          <span class="note-body">
+            <strong>{note.title}</strong>
+            <span>{note.text}</span>
+          </span>
+          <span class="note-tags">{note.tags}</span>
+        </article>
+      ))}
     </div>
   </section>
 </Base>
